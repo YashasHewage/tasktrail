@@ -18,9 +18,16 @@ class _RegiterState extends State<RegisterPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confimPasswordController = TextEditingController();
 
+  bool isLoading = false;
+
 
   void register() async {
+
+    setState(() {
+      isLoading = true;
+    });
     //get the auth service
+    await Future.delayed(const Duration(seconds: 2));
 
     final _authService = AuthService();
 
@@ -47,6 +54,9 @@ class _RegiterState extends State<RegisterPage> {
         ),
       );
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -54,7 +64,9 @@ class _RegiterState extends State<RegisterPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Center(
-        child: SingleChildScrollView(
+        child: isLoading
+        ? const CircularProgressIndicator()
+        : SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -20,8 +20,17 @@ class _LoginpageState extends State<Loginpage> {
 
   final TextEditingController passwordController = TextEditingController();
 
+  bool isLoading = false;
+
   //login method
   void login() async {
+
+    setState(() {
+      isLoading = true;
+    });
+    await Future.delayed(const Duration(seconds: 2));
+
+
     //get instace of auth service
     final _authService = AuthService();
 
@@ -36,6 +45,10 @@ class _LoginpageState extends State<Loginpage> {
         ),
       );
     }
+    setState(() {
+      isLoading = false;
+    });
+
   }
 
   @override
@@ -43,74 +56,78 @@ class _LoginpageState extends State<Loginpage> {
     return Scaffold(
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //logo
-              Icon(
-                Icons.travel_explore,
-                size: 100,
-                color: Theme.of(context).colorScheme.inversePrimary,
-              ),
-              const SizedBox(height: 25),
-
-              //message, app slogon
-              Text(
-                'Task Trail',
-                style: TextStyle(
-                  fontSize: 16,
+          child: isLoading
+          ? const CircularProgressIndicator()
+          :SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //logo
+                Icon(
+                  Icons.travel_explore,
+                  size: 100,
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),
-              ),
-              const SizedBox(height: 25),
-
-              //email
-              MyTextFeild(
-                controller: emailController,
-                hintText: 'Email',
-                obscureText: false,
-              ),
-
-              const SizedBox(height: 25),
-
-              //password
-              MyTextFeild(
-                controller: passwordController,
-                hintText: 'password',
-                obscureText: true,
-              ),
-              const SizedBox(height: 25),
-
-              //sing in button
-              MyButton(text: 'Sign In', onTap: login),
-              const SizedBox(height: 25),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Not a member ?',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                      fontWeight: FontWeight.bold,
-                    ),
+                const SizedBox(height: 25),
+            
+                //message, app slogon
+                Text(
+                  'Task Trail',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Theme.of(context).colorScheme.inversePrimary,
                   ),
-                  const SizedBox(width: 4),
-                  GestureDetector(
-                    onTap: widget.onTap,
-                    child: Text(
-                      'register now',
+                ),
+                const SizedBox(height: 25),
+            
+                //email
+                MyTextFeild(
+                  controller: emailController,
+                  hintText: 'Email',
+                  obscureText: false,
+                ),
+            
+                const SizedBox(height: 25),
+            
+                //password
+                MyTextFeild(
+                  controller: passwordController,
+                  hintText: 'password',
+                  obscureText: true,
+                ),
+                const SizedBox(height: 25),
+            
+                //sing in button
+                MyButton(text: 'Sign In', onTap: login),
+                const SizedBox(height: 25),
+            
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Not a member ?',
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.inversePrimary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
-                ],
-              )
-
-              // not a member? register now
-            ],
+                    const SizedBox(width: 4),
+                    GestureDetector(
+                      onTap: widget.onTap,
+                      child: Text(
+                        'register now',
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+            
+                // not a member? register now
+              ],
+            ),
           ),
         ));
   }
