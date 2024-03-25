@@ -58,8 +58,8 @@ class _RegiterState extends State<RegisterPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              //logo
-              //logo change 
+              //logos
+              //hey
               Icon(
                 Icons.travel_explore,
                 size: 100,
