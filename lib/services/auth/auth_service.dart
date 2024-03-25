@@ -7,6 +7,8 @@ class AuthService {
     return _firebaseAuth.currentUser;
   }
 
+  //signIN 
+
   Future<UserCredential> signInWithEmailAndPassword(
       String emal, password) async {
     try {
@@ -17,6 +19,7 @@ class AuthService {
       throw Exception(e.code);
     }
   }
+  //signUp
   Future<UserCredential> signUpWithEmailAndPassword(
       String emal, password) async {
     try {

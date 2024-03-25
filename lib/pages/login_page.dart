@@ -1,8 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:tasktrail/components/my_button.dart';
 import 'package:tasktrail/components/my_textfeild.dart';
-import 'package:tasktrail/pages/home_page.dart';
+
+import 'package:tasktrail/services/auth/auth_service.dart';
 
 class Loginpage extends StatefulWidget {
   final void Function()? onTap;
@@ -18,24 +21,23 @@ class _LoginpageState extends State<Loginpage> {
   final TextEditingController passwordController = TextEditingController();
 
   //login method
-  void login() {
-    /*
+  void login() async {
+    //get instace of auth service
+    final _authService = AuthService();
 
-
-    fill out authentcation here....
-
-
-
-    */
-
-    //navigate to the home page
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const HomePage(),
-      ),
-    );
+    try {
+      await _authService.signInWithEmailAndPassword(
+          emailController.text, passwordController.text);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +48,7 @@ class _LoginpageState extends State<Loginpage> {
             children: [
               //logo
               Icon(
-                Icons.lock_open_rounded,
+                Icons.travel_explore,
                 size: 100,
                 color: Theme.of(context).colorScheme.inversePrimary,
               ),

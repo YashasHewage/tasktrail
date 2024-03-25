@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tasktrail/services/auth/auth_get.dart';
-import 'package:tasktrail/services/auth/login_or_register.dart';
 import 'package:tasktrail/firebase_options.dart';
 import 'package:tasktrail/themes/theme_provider.dart';
 
