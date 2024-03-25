@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "168246001887",
+    "project_id": "task-trail-4012e",
+    "storage_bucket": "task-trail-4012e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168246001887:android:7a4396a990dd9ee2a9a96a",
+        "android_client_info": {
+          "package_name": "com.example.tasktrail"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-dsS1aAxlSu1lUDnYzmoiFyk6ikXpMgs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
