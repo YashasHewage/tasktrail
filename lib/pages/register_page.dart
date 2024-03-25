@@ -59,6 +59,7 @@ class _RegiterState extends State<RegisterPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //logo
+              //logo change 
               Icon(
                 Icons.travel_explore,
                 size: 100,
