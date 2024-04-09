@@ -68,9 +68,6 @@ class _HomePageState extends State<HomePage>
                   jobType: doc['category'].toString(),
                   documentId: doc.id,
                 );
-                SizedBox(
-                  height: 20,
-                );
               },
             );
           },
