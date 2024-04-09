@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tasktrail/pages/home_page.dart';
-import 'package:tasktrail/pages/job_details.dart';
+import 'package:tasktrail/pages/job_detail.dart';
 
 class JobCard extends StatelessWidget {
   final String jobTitle;
@@ -26,7 +25,7 @@ class JobCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => HomePage()),
+            MaterialPageRoute(builder: (context) => JobDetails()),
           );
         },
         child: Padding(
