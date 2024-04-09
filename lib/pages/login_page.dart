@@ -6,7 +6,7 @@ import 'package:tasktrail/components/my_button.dart';
 import 'package:tasktrail/components/my_textfeild.dart';
 
 import 'package:tasktrail/services/auth/auth_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tasktrail/services/firrestore.dart';
 
 class Loginpage extends StatefulWidget {
   final void Function()? onTap;
@@ -16,7 +16,14 @@ class Loginpage extends StatefulWidget {
   State<Loginpage> createState() => _LoginpageState();
 }
 
+final FirestoreService firestoreService = FirestoreService();
+
+
 class _LoginpageState extends State<Loginpage> {
+
+  
+  
+
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
@@ -31,20 +38,26 @@ class _LoginpageState extends State<Loginpage> {
 
     await Future.delayed(const Duration(seconds: 2));
 
+
+
     //get instance of auth service
     final _authService = AuthService();
 
     try {
+      
       await _authService.signInWithEmailAndPassword(
           emailController.text, passwordController.text);
 
-      // Save the email and password to Firestore
-      CollectionReference users =
-          FirebaseFirestore.instance.collection('users');
-      users.add({
-        'email': emailController.text,
-        'password': passwordController.text,
-      });
+      await firestoreService.addUser(emailController.text,"User213123");
+
+      showDialog(
+        context: context,
+        builder: (context) =>const  AlertDialog(
+          title:  Text('Login Successful'),
+        ),
+      );
+
+
     } catch (e) {
       showDialog(
         context: context,
