@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:tasktrail/pages/job_detail.dart';
 
 class JobCard extends StatelessWidget {
@@ -19,55 +20,137 @@ class JobCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Theme.of(context).colorScheme.secondary,
-      child: InkWell(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => JobDetails()),
-          );
-        },
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                jobTitle,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+    return SizedBox(
+      width: 365,
+      height: 133,
+      child: Stack(
+        children: [
+          Positioned(
+            left: 5,
+            top: 0,
+            child: Container(
+              width: 365,
+              height: 133,
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    width: 1,
+                    color: Colors.black.withOpacity(0.2),
+                  ),
+                  borderRadius: BorderRadius.circular(10),
                 ),
+                shadows: const [
+                  BoxShadow(
+                    color: Colors.white,
+                    blurRadius: 4,
+                    offset: Offset(0, 4),
+                    spreadRadius: 0,
+                  )
+                ],
               ),
-              Text(
-                'Price: $price',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              Text(
-                'Available Slots: $availableSlots',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              Text(
-                'Address: $address',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-              Text(
-                'Job Type: $jobType',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          const Positioned(
+            left: 20,
+            top: 17,
+            child: SizedBox(
+              width: 203,
+              height: 31,
+              child: Text(
+                'Need a Maths Teacher',
+                style: TextStyle(
+                  color: Color(0xFF090F24),
+                  fontSize: 18,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w400,
+                  height: 0,
+                ),
+              ),
+            ),
+          ),
+          const Positioned(
+            left: 20,
+            top: 51,
+            child: SizedBox(
+              width: 150,
+              height: 14,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.location_on,
+                    size: 14,
+                  ),
+                  Text(
+                    'Gampaha, Western Province',
+                    style: TextStyle(
+                      color: Color(0xFF868686),
+                      fontSize: 10,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w400,
+                      height: 0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            left: 22,
+            top: 79,
+            child: Container(
+              width: 68,
+              height: 25,
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    child: Container(
+                      width: 68,
+                      height: 25,
+                      decoration: ShapeDecoration(
+                        color: const Color(0xE8406AFF),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(24),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Center(
+                    child: Text(
+                      'Education',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w400,
+                        height: 0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const Positioned(
+            left: 269,
+            top: 83,
+            child: SizedBox(
+              width: 71,
+              height: 27,
+              child: Text(
+                '\$10 / Hour',
+                style: TextStyle(
+                  color: Color(0xFF434F76),
+                  fontSize: 14,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w600,
+                  height: 0.12,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

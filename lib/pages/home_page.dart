@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:tasktrail/components/my_drawer.dart';
 import 'package:tasktrail/components/my_job_tile.dart';
@@ -28,29 +30,32 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.tertiary,
       drawer: const Mydrawer(),
       body: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                MySliverAppBar(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      //image insert
-                      Image.asset(
-                        'assets/images/landingpage.png',
-                        height: 200,
-                      ),
-
-                      // Divider(
-                      //   indent: 25,
-                      //   endIndent: 25,
-                      //   color: Theme.of(context).colorScheme.secondary,
-                      // ),
-                    ],
-                  ),
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          MySliverAppBar(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                //image insert
+                Image.asset(
+                  'assets/images/landingpage.png',
+                  height: 200,
                 ),
+
+                // Divider(
+                //   indent: 25,
+                //   endIndent: 25,
+                //   color: Theme.of(context).colorScheme.secondary,
+                // ),
               ],
-          body: ListView(
+            ),
+          ),
+        ],
+        body: Padding(
+          padding: const EdgeInsets.only(left: 24),
+          child: ListView(
             children: const [
               JobCard(
                   jobTitle: "fuck",
@@ -58,6 +63,7 @@ class _HomePageState extends State<HomePage>
                   availableSlots: "fuck",
                   address: "fuck",
                   jobType: "fuck"),
+              SizedBox(height: 20),
               JobCard(
                   jobTitle: "fuck",
                   price: "afdafd",
@@ -65,7 +71,9 @@ class _HomePageState extends State<HomePage>
                   address: "fadsfads",
                   jobType: "dafasd"),
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
