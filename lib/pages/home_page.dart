@@ -1,12 +1,17 @@
+<<<<<<< HEAD
 import 'dart:ffi';
 
+=======
+import 'package:cloud_firestore/cloud_firestore.dart';
+>>>>>>> de2d2cf77ea86cc31a088549eb8969686fc21265
 import 'package:flutter/material.dart';
 import 'package:tasktrail/components/my_drawer.dart';
 import 'package:tasktrail/components/my_job_tile.dart';
 import 'package:tasktrail/components/my_sliver_app_bar.dart';
+import 'package:tasktrail/services/firrestore.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -27,6 +32,8 @@ class _HomePageState extends State<HomePage>
     super.dispose();
   }
 
+  final FirestoreService firestoreService = FirestoreService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +45,10 @@ class _HomePageState extends State<HomePage>
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+<<<<<<< HEAD
                 //image insert
+=======
+>>>>>>> de2d2cf77ea86cc31a088549eb8969686fc21265
                 Image.asset(
                   'assets/images/landingpage.png',
                   height: 200,
@@ -53,6 +63,7 @@ class _HomePageState extends State<HomePage>
             ),
           ),
         ],
+<<<<<<< HEAD
         body: Padding(
           padding: const EdgeInsets.only(left: 24),
           child: ListView(
@@ -72,6 +83,31 @@ class _HomePageState extends State<HomePage>
                   jobType: "dafasd"),
             ],
           ),
+=======
+        body: StreamBuilder<QuerySnapshot>(
+          stream: firestoreService.getJobs(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                final doc = snapshot.data!.docs[index];
+                return JobCard(
+                  jobTitle: doc['title'],
+                  price: doc['price'].toString(),
+                  availableSlots: doc['slots'].toString(),
+                  address: doc['address'],
+                  jobType: doc['category'].toString(),
+                  documentId: doc.id,
+                );
+              },
+            );
+          },
+>>>>>>> de2d2cf77ea86cc31a088549eb8969686fc21265
         ),
       ),
     );
