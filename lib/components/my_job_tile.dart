@@ -7,6 +7,7 @@ class JobCard extends StatelessWidget {
   final String availableSlots;
   final String address;
   final String jobType;
+  final String documentId;
 
   const JobCard({
     Key? key,
@@ -15,6 +16,7 @@ class JobCard extends StatelessWidget {
     required this.availableSlots,
     required this.address,
     required this.jobType,
+    required this.documentId,
   }) : super(key: key);
 
   @override
@@ -25,7 +27,7 @@ class JobCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => JobDetails()),
+            MaterialPageRoute(builder: (context) => JobDetails(id: documentId)),
           );
         },
         child: Padding(

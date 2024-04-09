@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class JobDetails extends StatelessWidget {
-  const JobDetails({super.key});
+  final String id;
+
+  const JobDetails({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
