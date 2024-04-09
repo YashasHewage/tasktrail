@@ -6,8 +6,7 @@ import 'package:tasktrail/pages/settings_page.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
 
 class Mydrawer extends StatefulWidget {
-
-const Mydrawer({super.key});
+  const Mydrawer({super.key});
 
   @override
   State<Mydrawer> createState() => _MydrawerState();

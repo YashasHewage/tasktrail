@@ -29,7 +29,7 @@ class JobCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => JobDetails(
+              builder: (context) => TaskView(
                 id: documentId,
               ),
             ),

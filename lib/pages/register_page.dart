@@ -1,10 +1,9 @@
-import 'dart:math';
+// ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:tasktrail/components/my_button.dart';
 import 'package:tasktrail/components/my_textfeild.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
-import 'package:tasktrail/services/firrestore.dart';
 
 class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
@@ -15,15 +14,12 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegiterState extends State<RegisterPage> {
-  final FirestoreService firestoreService = FirestoreService();
-
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confimPasswordController =
       TextEditingController();
 
   bool isLoading = false;
-  var rng = Random();
 
   void register() async {
     setState(() {
@@ -40,21 +36,6 @@ class _RegiterState extends State<RegisterPage> {
         await _authService.signUpWithEmailAndPassword(
           emailController.text,
           passwordController.text,
-        );
-
-        var randomNumber = rng.nextInt(10000);
-        await firestoreService.addUser(
-            emailController.text, "User " + randomNumber.toString());
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const Scaffold(
-              body: Center(
-                child: Text('Account created successfully!'),
-              ),
-            ),
-          ),
         );
       } catch (e) {
         showDialog(
