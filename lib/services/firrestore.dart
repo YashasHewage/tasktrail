@@ -17,15 +17,14 @@ class FirestoreService {
     return users.where('email', isEqualTo: email).get().then((value) {
       return value.docs.first;
     });
-  } 
-
+  }
 
   //add a New job
   final CollectionReference jobs =
       FirebaseFirestore.instance.collection('jobs');
 
-  Future<void> addJob(
-      String title, String description, int price, int slots, String address, String category, String contact) {
+  Future<void> addJob(String title, String description, int price, int slots,
+      String address, String category, String contact) {
     return jobs.add({
       'title': title,
       'description': description,

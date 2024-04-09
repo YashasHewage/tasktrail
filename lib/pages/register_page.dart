@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:tasktrail/components/my_button.dart';
@@ -23,6 +23,7 @@ class _RegiterState extends State<RegisterPage> {
       TextEditingController();
 
   bool isLoading = false;
+  var rng = Random();
 
   void register() async {
     setState(() {
@@ -40,7 +41,10 @@ class _RegiterState extends State<RegisterPage> {
           emailController.text,
           passwordController.text,
         );
-        await firestoreService.addUser(emailController.text, "User213123");
+
+        var randomNumber = rng.nextInt(10000);
+        await firestoreService.addUser(
+            emailController.text, "User " + randomNumber.toString());
 
         Navigator.push(
           context,
@@ -52,8 +56,6 @@ class _RegiterState extends State<RegisterPage> {
             ),
           ),
         );
-        
-
       } catch (e) {
         showDialog(
           context: context,

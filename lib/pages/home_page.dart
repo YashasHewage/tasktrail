@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage>
                   availableSlots: doc['slots'].toString(),
                   address: doc['address'],
                   jobType: doc['category'].toString(),
+                  documentId: doc.id,
                 );
               },
             );
