@@ -42,7 +42,16 @@ class _RegiterState extends State<RegisterPage> {
         );
         await firestoreService.addUser(emailController.text, "User213123");
 
-        
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const Scaffold(
+              body: Center(
+                child: Text('Account created successfully!'),
+              ),
+            ),
+          ),
+        );
         
 
       } catch (e) {
