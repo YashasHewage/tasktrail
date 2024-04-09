@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:tasktrail/components/my_drawer_tile.dart';
+import 'package:tasktrail/pages/add_job.dart';
+import 'package:tasktrail/pages/fetch_data.dart';
 import 'package:tasktrail/pages/settings_page.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
 
@@ -33,7 +35,7 @@ class _MydrawerState extends State<Mydrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.tertiary,
       child: isLoading
           ? const Center(child: CircularProgressIndicator())
           : Column(
@@ -69,6 +71,34 @@ class _MydrawerState extends State<Mydrawer> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => const SettingsPage(),
+                      ),
+                    );
+                  },
+                ),
+
+                MyDrawerTile(
+                  text: 'A D D T A S K',
+                  icon: Icons.add_to_photos_rounded,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddJob(),
+                      ),
+                    );
+                  },
+                ),
+
+                MyDrawerTile(
+                  text: 'Fetch Data',
+                  icon: Icons.add_to_photos_rounded,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const FetchData(),
                       ),
                     );
                   },
