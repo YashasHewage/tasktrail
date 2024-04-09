@@ -19,7 +19,6 @@ class _AddJobState extends State<AddJob> {
   final contactController = TextEditingController();
   final categoryController = TextEditingController();
 
-
   void addJob() async {
     if (titleController.text.isEmpty ||
         descriptionController.text.isEmpty ||
@@ -56,7 +55,8 @@ class _AddJobState extends State<AddJob> {
     priceController.clear();
     slotsController.clear();
     addressController.clear();
-
+    contactController.clear();
+    categoryController.clear();
   }
 
   @override
@@ -130,7 +130,7 @@ class _AddJobState extends State<AddJob> {
               ),
               const SizedBox(height: 10),
               TextFormField(
-                controller: titleController,
+                controller: contactController,
                 decoration: InputDecoration(
                   labelText: 'Contact',
                   border: UnderlineInputBorder(
@@ -144,7 +144,7 @@ class _AddJobState extends State<AddJob> {
               ),
               const SizedBox(height: 10),
               TextFormField(
-                controller: titleController,
+                controller: categoryController,
                 decoration: InputDecoration(
                   labelText: 'Category',
                   border: UnderlineInputBorder(
