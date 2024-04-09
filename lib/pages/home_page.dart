@@ -16,17 +16,19 @@ class _HomePageState extends State<HomePage> {
       drawer: const Mydrawer(),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [
-        MySliverAppBar(
+          MySliverAppBar(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text('Welcome to Task Trail'),
-                Text('Your one stop for all your tasks'),
+                Divider(
+                  indent: 25,
+                  endIndent: 25,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
               ],
-            
-          ),
+            ),
             title: Text('Task Trail'),
-            
+          ),
         ],
         body: Container(color: Colors.blue),
       ),
