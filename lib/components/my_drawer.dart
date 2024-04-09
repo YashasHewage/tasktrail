@@ -74,6 +74,22 @@ class _MydrawerState extends State<Mydrawer> {
                   },
                 ),
 
+          
+
+                MyDrawerTile(
+                  text: 'S E T T I N G S',
+                  icon: Icons.settings,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SettingsPage(),
+                      ),
+                    );
+                  },
+                ),
+
                 const Spacer(),
 
                 //settings list tile
