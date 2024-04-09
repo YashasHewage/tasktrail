@@ -10,7 +10,6 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
@@ -25,10 +24,6 @@ class _HomePageState extends State<HomePage>
     _tabController.dispose();
     super.dispose();
   }
-
-class _HomePageState extends State<HomePage> {
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +66,6 @@ class _HomePageState extends State<HomePage> {
                   jobType: "dafasd"),
             ],
           )),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }
