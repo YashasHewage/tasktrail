@@ -1,10 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tasktrail/components/my_drawer.dart';
 import 'package:tasktrail/components/my_job_tile.dart';
 import 'package:tasktrail/components/my_sliver_app_bar.dart';
+import 'package:tasktrail/services/firrestore.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -25,47 +27,50 @@ class _HomePageState extends State<HomePage>
     super.dispose();
   }
 
+  final FirestoreService firestoreService = FirestoreService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const Mydrawer(),
       body: NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) => [
-                MySliverAppBar(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      //image insert
-                      Image.asset(
-                        'assets/images/landingpage.png',
-                        height: 200,
-                      ),
-
-                      // Divider(
-                      //   indent: 25,
-                      //   endIndent: 25,
-                      //   color: Theme.of(context).colorScheme.secondary,
-                      // ),
-                    ],
-                  ),
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [
+          MySliverAppBar(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Image.asset(
+                  'assets/images/landingpage.png',
+                  height: 200,
                 ),
               ],
-          body: ListView(
-            children: const [
-              JobCard(
-                  jobTitle: "fuck",
-                  price: "fuck",
-                  availableSlots: "fuck",
-                  address: "fuck",
-                  jobType: "fuck"),
-              JobCard(
-                  jobTitle: "fuck",
-                  price: "afdafd",
-                  availableSlots: "fadfdads",
-                  address: "fadsfads",
-                  jobType: "dafasd"),
-            ],
-          )),
+            ),
+          ),
+        ],
+        body: StreamBuilder<QuerySnapshot>(
+          stream: firestoreService.getJobs(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                final doc = snapshot.data!.docs[index];
+                return JobCard(
+                  jobTitle: doc['title'],
+                  price: doc['price'].toString(),
+                  availableSlots: doc['slots'].toString(),
+                  address: doc['address'],
+                  jobType: doc['category'].toString(),
+                );
+              },
+            );
+          },
+        ),
+      ),
     );
   }
 }
