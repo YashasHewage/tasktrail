@@ -25,13 +25,15 @@ class FirestoreService {
       FirebaseFirestore.instance.collection('jobs');
 
   Future<void> addJob(
-      String title, String description, int price, int slots, String address) {
+      String title, String description, int price, int slots, String address, String category, String contact) {
     return jobs.add({
       'title': title,
       'description': description,
       'price': price,
       'slots': slots,
       'address': address,
+      'category': 'General', // default category 'General'
+      'contact': '0700000000', // default contact '0700000000
       'createdAt': Timestamp.now(),
     });
   }

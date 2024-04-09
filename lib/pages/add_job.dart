@@ -16,6 +16,9 @@ class _AddJobState extends State<AddJob> {
   final priceController = TextEditingController();
   final slotsController = TextEditingController();
   final addressController = TextEditingController();
+  final contactController = TextEditingController();
+  final categoryController = TextEditingController();
+
 
   void addJob() async {
     if (titleController.text.isEmpty ||
@@ -43,6 +46,8 @@ class _AddJobState extends State<AddJob> {
       int.parse(priceController.text),
       int.parse(slotsController.text),
       addressController.text,
+      contactController.text,
+      categoryController.text,
     );
 
 // clear fields
@@ -51,6 +56,7 @@ class _AddJobState extends State<AddJob> {
     priceController.clear();
     slotsController.clear();
     addressController.clear();
+
   }
 
   @override
@@ -120,6 +126,34 @@ class _AddJobState extends State<AddJob> {
                   border: UnderlineInputBorder(),
                   filled: true,
                   fillColor: Color.fromARGB(255, 255, 255, 255),
+                ),
+              ),
+              const SizedBox(height: 10),
+              TextFormField(
+                controller: titleController,
+                decoration: InputDecoration(
+                  labelText: 'Contact',
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                    ),
+                  ),
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.tertiary,
+                ),
+              ),
+              const SizedBox(height: 10),
+              TextFormField(
+                controller: titleController,
+                decoration: InputDecoration(
+                  labelText: 'Category',
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                    ),
+                  ),
+                  filled: true,
+                  fillColor: Theme.of(context).colorScheme.tertiary,
                 ),
               ),
               const SizedBox(height: 10),

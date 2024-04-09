@@ -1,5 +1,3 @@
-// ignore_for_file: no_leading_underscores_for_local_identifiers
-
 import 'package:flutter/material.dart';
 import 'package:tasktrail/components/my_drawer_tile.dart';
 import 'package:tasktrail/pages/add_job.dart';
@@ -8,7 +6,8 @@ import 'package:tasktrail/pages/settings_page.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
 
 class Mydrawer extends StatefulWidget {
-  const Mydrawer({super.key});
+
+const Mydrawer({super.key});
 
   @override
   State<Mydrawer> createState() => _MydrawerState();
