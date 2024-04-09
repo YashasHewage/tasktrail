@@ -59,7 +59,7 @@ android {
         }
     }
 
-     defaultConfig {
+    defaultConfig {
     
         multiDexEnabled true
     }
