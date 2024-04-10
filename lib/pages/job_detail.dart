@@ -58,7 +58,7 @@ class TaskView extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-Column(
+                                Column(
                                   children: [
                                     CircleAvatar(
                                       radius: 35,

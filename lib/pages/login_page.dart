@@ -60,85 +60,122 @@ class _LoginpageState extends State<Loginpage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/loginScreen.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
         body: Center(
           child: isLoading
               ? const CircularProgressIndicator()
               : SingleChildScrollView(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      //logo
-                      Icon(
-                        Icons.travel_explore,
-                        size: 100,
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                      ),
-                      const SizedBox(height: 25),
-
-                      //message, app slogon
-                      Text(
-                        'Task Trail',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Theme.of(context).colorScheme.inversePrimary,
-                        ),
-                      ),
-                      const SizedBox(height: 25),
-
-                      //email
-                      MyTextFeild(
-                        controller: emailController,
-                        hintText: 'Email',
-                        obscureText: false,
-                      ),
-
-                      const SizedBox(height: 25),
-
-                      //password
-                      MyTextFeild(
-                        controller: passwordController,
-                        hintText: 'password',
-                        obscureText: true,
-                      ),
-                      const SizedBox(height: 25),
-
-                      //sing in button
-                      MyButton(text: 'Sign In', onTap: login),
-                      const SizedBox(height: 25),
-
-                      Row(
+                      const SizedBox(height: 300),
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Not a member ?',
-                            style: TextStyle(
-                              color:
-                                  Theme.of(context).colorScheme.inversePrimary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(width: 4),
-                          GestureDetector(
-                            onTap: widget.onTap,
-                            child: Text(
-                              'register now',
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .inversePrimary,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 35, right: 35),
+                            child: Column(
+                              children: [
+                                // const Text(
+                                //   '',
+                                //   style: TextStyle(
+                                //     color: Color.fromRGBO(127, 110, 157, 1),
+                                //     fontSize: 27,
+                                //     fontWeight: FontWeight.w700,
+                                //   ),
+                                // ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                MyTextFeild(
+                                  controller: emailController,
+                                  hintText: 'Email',
+                                  obscureText: false,
+                                ),
+                                const SizedBox(height: 30),
+                                MyTextFeild(
+                                  controller: passwordController,
+                                  hintText: 'Password',
+                                  obscureText: true,
+                                ),
+                                const SizedBox(height: 40),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(right: 9, left: 9),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        'Sign in',
+                                        style: TextStyle(
+                                          color:
+                                              Color.fromRGBO(127, 110, 157, 1),
+                                          fontSize: 27,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ),
+                                      CircleAvatar(
+                                        radius: 30,
+                                        backgroundColor:
+                                            Color.fromRGBO(160, 147, 183, 1),
+                                        child: IconButton(
+                                          color: Colors.white,
+                                          onPressed: login,
+                                          icon: const Icon(
+                                            Icons.arrow_forward,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 40),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'already have an account?',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Color.fromRGBO(160, 147, 183, 1),
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    GestureDetector(
+                                      onTap: widget.onTap,
+                                      child: Text(
+                                        'register',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .inversePrimary,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ],
-                      )
-
-                      // not a member? register now
+                      ),
                     ],
                   ),
                 ),
-        ));
+        ),
+      ),
+    );
   }
 }

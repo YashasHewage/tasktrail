@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MySliverAppBar extends StatelessWidget {
@@ -17,18 +18,19 @@ class MySliverAppBar extends StatelessWidget {
       pinned: true,
       actions: [
         IconButton(
-          icon: const Icon(Icons.search),
+          icon: const Icon(Icons.search, color: Colors.black),
           onPressed: () {},
         ),
         IconButton(
-          icon: const Icon(Icons.more_vert),
+          icon: const Icon(Icons.more_vert, color: Colors.black),
           onPressed: () {},
         ),
       ],
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-      title: const Text(
+      title: Text(
         'Task Trail',
+        style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black),
       ),
       flexibleSpace: FlexibleSpaceBar(
         background: Padding(
