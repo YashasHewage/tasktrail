@@ -8,6 +8,8 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  bool isSwitched = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,8 +51,9 @@ class _ProfileViewState extends State<ProfileView> {
                                   Text(
                                     "User_1000",
                                     style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   Text("userdata100@gmail.com")
                                 ],
