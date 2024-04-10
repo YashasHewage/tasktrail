@@ -5,10 +5,11 @@ class FirestoreService {
   final CollectionReference users =
       FirebaseFirestore.instance.collection('user');
 
-  Future<void> addUser(String email, String username) {
+  Future<void> addUser(String email, String username, int imageNumber) {
     return users.add({
       'email': email,
       'username': username,
+      'imageId': imageNumber,
     });
   }
 
@@ -16,6 +17,13 @@ class FirestoreService {
   Future<DocumentSnapshot> getUserByEmail(String email) {
     return users.where('email', isEqualTo: email).get().then((value) {
       return value.docs.first;
+    });
+  }
+
+  // get imageNumber by email
+  Future<int> getUserImageNumberByEmail(String email) {
+    return users.where('email', isEqualTo: email).get().then((value) {
+      return value.docs.first['imageId'];
     });
   }
 
@@ -57,6 +65,4 @@ class FirestoreService {
   Future<void> deleteJob(String documentId) {
     return jobs.doc(documentId).delete();
   }
-
-
 }

@@ -5,6 +5,7 @@ import 'package:tasktrail/pages/categoriesview.dart';
 import 'package:tasktrail/pages/my_ads.dart';
 import 'package:tasktrail/pages/settings_page.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
+import 'package:tasktrail/services/firrestore.dart';
 
 class Mydrawer extends StatefulWidget {
   const Mydrawer({super.key});
@@ -31,6 +32,8 @@ class _MydrawerState extends State<Mydrawer> {
     });
   }
 
+  final FirestoreService firestoreService = FirestoreService();
+
   final AuthService authService = AuthService();
 
   @override
@@ -41,12 +44,24 @@ class _MydrawerState extends State<Mydrawer> {
           ? const Center(child: CircularProgressIndicator())
           : Column(
               children: [
-                Padding(
-                    padding: const EdgeInsets.only(top: 100.0),
-                    child: Image.asset(
-                      'assets/images/avatar1.png',
-                      height: 120,
-                    )),
+                FutureBuilder<int>(
+                  future: firestoreService.getUserImageNumberByEmail(authService.getEmail()),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const CircularProgressIndicator();
+                    }
+                    if (snapshot.hasError) {
+                      return const Text('Error fetching imagenumber');
+                    }
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 100.0),
+                      child: Image.asset(
+                        'assets/images/avatar${snapshot.data}.png',
+                        height: 120,
+                      ),
+                    );
+                  },
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text(
