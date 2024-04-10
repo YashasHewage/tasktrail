@@ -242,8 +242,8 @@ children: <Widget>[
   Row(
     children: <Widget>[
       CircleAvatar(
-        radius: 32,
-        backgroundImage: AssetImage('image'),
+        radius: 35,
+        backgroundImage: AssetImage('assets/images/avatar1.png'),
       ),
       SizedBox(width: 15),
       Expanded(
