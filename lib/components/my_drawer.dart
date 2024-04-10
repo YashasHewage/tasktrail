@@ -32,6 +32,8 @@ class _MydrawerState extends State<Mydrawer> {
     });
   }
 
+  final AuthService authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -41,29 +43,40 @@ class _MydrawerState extends State<Mydrawer> {
           : Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 100.0),
-                  child: Icon(
-                    Icons.lock_open_rounded,
-                    size: 80,
-                    color: Theme.of(context).colorScheme.inversePrimary,
+                    padding: const EdgeInsets.only(top: 100.0),
+                    // child: Icon(
+                    //   Icons.lock_open_rounded,
+                    //   size: 80,
+                    //   color: Theme.of(context).colorScheme.inversePrimary,
+                    // ),
+                    child: Image.asset(
+                      'assets/images/avatar1.png',
+                      height: 120,
+                    )),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    authService.getEmail(),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(25.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Divider(
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
                 //app logo
                 MyDrawerTile(
-                  text: 'H O M E',
+                  text: 'Home',
                   icon: Icons.home,
                   onTap: () => Navigator.pop(context),
                 ),
 
                 //home list tile
                 MyDrawerTile(
-                  text: 'S E T T I N G S',
+                  text: 'Settings',
                   icon: Icons.settings,
                   onTap: () {
                     Navigator.pop(context);
@@ -77,7 +90,7 @@ class _MydrawerState extends State<Mydrawer> {
                 ),
 
                 MyDrawerTile(
-                  text: 'A D D T A S K',
+                  text: 'Add task',
                   icon: Icons.add_to_photos_rounded,
                   onTap: () {
                     Navigator.pop(context);
@@ -90,8 +103,8 @@ class _MydrawerState extends State<Mydrawer> {
                   },
                 ),
                 MyDrawerTile(
-                  text: 'M Y T A S K S',
-                  icon: Icons.add_to_photos_rounded,
+                  text: 'Task Management',
+                  icon: Icons.task,
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.push(
@@ -111,7 +124,7 @@ class _MydrawerState extends State<Mydrawer> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>  CategoriesPage(),
+                        builder: (context) => CategoriesPage(),
                       ),
                     );
                   },
@@ -121,7 +134,7 @@ class _MydrawerState extends State<Mydrawer> {
 
                 //settings list tile
                 MyDrawerTile(
-                  text: 'L O G O U T',
+                  text: 'Logout',
                   icon: Icons.logout,
                   onTap: logout,
                 ),
