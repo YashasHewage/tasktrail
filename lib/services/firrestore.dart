@@ -27,6 +27,8 @@ class FirestoreService {
     });
   }
 
+//.....................................................................................................................................
+
   //add a New job
   final CollectionReference jobs =
       FirebaseFirestore.instance.collection('jobs');
@@ -59,6 +61,11 @@ class FirestoreService {
         jobs.where('ownerEmail', isEqualTo: ownerEmail).snapshots();
 
     return jobsStream1;
+  }
+
+  // fetch job by id
+  Future<DocumentSnapshot> getJobById(String documentId) {
+    return jobs.doc(documentId).get();
   }
 
   //delete a job
