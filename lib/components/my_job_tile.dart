@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasktrail/pages/job_detail.dart';
+import 'package:tasktrail/services/firrestore.dart';
 
 class JobCard extends StatelessWidget {
   final String jobTitle;
@@ -10,7 +11,7 @@ class JobCard extends StatelessWidget {
   final String documentId;
   final String page;
 
-  const JobCard({
+  JobCard({
     Key? key,
     required this.jobTitle,
     required this.price,
@@ -20,6 +21,8 @@ class JobCard extends StatelessWidget {
     required this.documentId,
     required this.page,
   }) : super(key: key);
+
+  final FirestoreService firestoreService = FirestoreService();
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +97,9 @@ class JobCard extends StatelessWidget {
                                   padding: MaterialStateProperty.all<
                                       EdgeInsetsGeometry>(EdgeInsets.zero),
                                 ),
-                                onPressed: () {},
+                                onPressed: () async {
+                                  await firestoreService.deleteJob(documentId);
+                                },
                                 icon: const Icon(
                                   Icons.delete,
                                   color: Color.fromARGB(255, 225, 66, 66),
@@ -109,7 +114,7 @@ class JobCard extends StatelessWidget {
                   left: 20,
                   top: 51,
                   child: SizedBox(
-                    width: 150,
+                    width: 200,
                     height: 14,
                     child: Row(
                       children: [
@@ -173,10 +178,10 @@ class JobCard extends StatelessWidget {
                   left: 269,
                   top: 83,
                   child: SizedBox(
-                    width: 71,
+                    width: 100,
                     height: 27,
                     child: Text(
-                      'Rs$price',
+                      'Rs $price',
                       style: const TextStyle(
                         color: Color(0xFF434F76),
                         fontSize: 14,
