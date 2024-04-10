@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tasktrail/services/auth/auth_service.dart';
 import 'package:tasktrail/services/firrestore.dart';
 
 class AddJob extends StatefulWidget {
@@ -9,6 +10,8 @@ class AddJob extends StatefulWidget {
 }
 
 class _AddJobState extends State<AddJob> {
+  final AuthService authService = AuthService();
+
   final FirestoreService firestoreService = FirestoreService();
 
   final titleController = TextEditingController();
@@ -18,7 +21,6 @@ class _AddJobState extends State<AddJob> {
   final addressController = TextEditingController();
   final contactController = TextEditingController();
   String? category;
-  String ownerEmail = 'sineth2@gmail.com';
 
   void addJob() async {
     if (titleController.text.isEmpty ||
@@ -49,7 +51,7 @@ class _AddJobState extends State<AddJob> {
       addressController.text,
       category!,
       contactController.text,
-      ownerEmail,
+      authService.getEmail(),
     );
 
     // clear fields
