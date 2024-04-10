@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:tasktrail/components/my_job_tile.dart';
+import 'package:tasktrail/services/auth/auth_service.dart';
 import 'package:tasktrail/services/firrestore.dart';
 
 class MyAds extends StatefulWidget {
@@ -11,6 +12,8 @@ class MyAds extends StatefulWidget {
 }
 
 class _MyAdsState extends State<MyAds> with SingleTickerProviderStateMixin {
+  final AuthService authService = AuthService();
+
   final FirestoreService firestoreService = FirestoreService();
 
   @override
@@ -23,7 +26,7 @@ class _MyAdsState extends State<MyAds> with SingleTickerProviderStateMixin {
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) => [],
         body: StreamBuilder<QuerySnapshot>(
-          stream: firestoreService.getMyAds("sineth1@gmail.com"),
+          stream: firestoreService.getMyAds(authService.getEmail()),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(

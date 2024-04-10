@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasktrail/components/my_drawer_tile.dart';
 import 'package:tasktrail/pages/add_job.dart';
+import 'package:tasktrail/pages/categoriesview.dart';
 import 'package:tasktrail/pages/fetch_data.dart';
 import 'package:tasktrail/pages/my_ads.dart';
 import 'package:tasktrail/pages/settings_page.dart';
@@ -110,7 +111,7 @@ class _MydrawerState extends State<Mydrawer> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const FetchData(),
+                        builder: (context) =>  CategoriesPage(),
                       ),
                     );
                   },

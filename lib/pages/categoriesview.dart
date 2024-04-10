@@ -17,17 +17,17 @@ class CategoriesPage extends StatelessWidget {
                   Align(
                     alignment: Alignment.topLeft,
                     child: IconButton(
-                      icon: Icon(Icons.arrow_back),
+                      icon: const Icon(Icons.arrow_back),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
                     ),
                   ),
-                  SizedBox(height: 10),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Container(
-                    margin: EdgeInsets.only(left: 1, bottom: 10),
-                    child: Row(
+                    margin: const EdgeInsets.only(left: 1, bottom: 10),
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
@@ -40,7 +40,7 @@ class CategoriesPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -49,52 +49,52 @@ class CategoriesPage extends StatelessWidget {
                           children: [
                             _buildCategoryButton('Engineering', context,
                                 addIcon: true, icon: Icons.lightbulb_outline),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             _buildCategoryButton(
                                 'Information Technology', context,
                                 addIcon: true, icon: Icons.laptop),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             _buildCategoryButton('Healthcare', context,
                                 addIcon: true, icon: Icons.add),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             _buildCategoryButton(
                                 'Science and Technology', context,
                                 addIcon: true, icon: Icons.science),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             _buildCategoryButton('Engineering', context,
                                 addIcon: true, icon: Icons.lightbulb_outline),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             _buildCategoryButton(
                                 'Information Technology', context,
                                 addIcon: true, icon: Icons.laptop),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             _buildCategoryButton('Healthcare', context,
                                 addIcon: true, icon: Icons.add),
                           ],
                         ),
                       ),
-                      SizedBox(width: 20),
+                      const SizedBox(width: 20),
                       Expanded(
                         child: Column(
                           children: [
                             _buildCategoryButton('Education', context,
                                 addIcon: true, icon: Icons.school),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             _buildCategoryButton('Construction', context,
                                 addIcon: true, icon: Icons.construction),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             _buildCategoryButton('Transportation', context,
                                 addIcon: true, icon: Icons.local_shipping),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             _buildCategoryButton('Finance', context,
                                 addIcon: true, icon: Icons.attach_money),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             _buildCategoryButton('Education', context,
                                 addIcon: true, icon: Icons.school),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             _buildCategoryButton('Construction', context,
                                 addIcon: true, icon: Icons.construction),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             _buildCategoryButton('Transportation', context,
                                 addIcon: true, icon: Icons.local_shipping),
                           ],
@@ -131,7 +131,7 @@ class CategoriesPage extends StatelessWidget {
               child: Text(
                 categoryName,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w600,
                 ),

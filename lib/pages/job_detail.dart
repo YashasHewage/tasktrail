@@ -396,7 +396,7 @@ class TaskView extends StatelessWidget {
                             ),
                             clipBehavior: Clip.antiAlias,
                             decoration: const BoxDecoration(),
-                            child: Row(
+                            child: const Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
