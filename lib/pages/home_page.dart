@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tasktrail/components/my_drawer.dart';
 import 'package:tasktrail/components/my_job_tile.dart';
 import 'package:tasktrail/components/my_sliver_app_bar.dart';
+import 'package:tasktrail/services/auth/auth_service.dart';
 import 'package:tasktrail/services/firrestore.dart';
 
 class HomePage extends StatefulWidget {
@@ -27,6 +28,8 @@ class _HomePageState extends State<HomePage>
     super.dispose();
   }
 
+  final AuthService authService = AuthService();
+
   final FirestoreService firestoreService = FirestoreService();
 
   @override
@@ -44,6 +47,14 @@ class _HomePageState extends State<HomePage>
                   'assets/images/landingpage.png',
                   height: 200,
                 ),
+                Text(
+                  authService.getEmail(),
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )
               ],
             ),
           ),
