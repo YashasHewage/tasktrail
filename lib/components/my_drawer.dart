@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tasktrail/components/my_drawer_tile.dart';
 import 'package:tasktrail/pages/add_job.dart';
 import 'package:tasktrail/pages/fetch_data.dart';
+import 'package:tasktrail/pages/my_ads.dart';
 import 'package:tasktrail/pages/settings_page.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
 
@@ -83,6 +84,19 @@ class _MydrawerState extends State<Mydrawer> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => const AddJob(),
+                      ),
+                    );
+                  },
+                ),
+                MyDrawerTile(
+                  text: 'M Y T A S K S',
+                  icon: Icons.add_to_photos_rounded,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MyAds(),
                       ),
                     );
                   },
