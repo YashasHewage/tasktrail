@@ -45,7 +45,8 @@ class _MydrawerState extends State<Mydrawer> {
           : Column(
               children: [
                 FutureBuilder<int>(
-                  future: firestoreService.getUserImageNumberByEmail(authService.getEmail()),
+                  future: firestoreService
+                      .getUserImageNumberByEmail(authService.getEmail()),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const CircularProgressIndicator();
