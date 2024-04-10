@@ -58,7 +58,7 @@ class TaskView extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-Column(
+                                Column(
                                   children: [
                                     CircleAvatar(
                                       radius: 35,
@@ -212,26 +212,25 @@ Column(
         },
       ),
       floatingActionButton: Container(
-        margin: const EdgeInsets.only(bottom: 150), 
+        margin: const EdgeInsets.only(bottom: 150),
         width: 320,
         child: FloatingActionButton(
-          onPressed: () {
-          },
+          onPressed: () {},
           child: Text(
-        'Enroll Now',
-        style: GoogleFonts.poppins(
-          color: Colors.white,
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-        ),
+            'Enroll Now',
+            style: GoogleFonts.poppins(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           backgroundColor: Color.fromARGB(255, 67, 98, 235),
           shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15), 
+            borderRadius: BorderRadius.circular(15),
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat, 
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

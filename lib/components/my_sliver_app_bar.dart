@@ -27,8 +27,21 @@ class MySliverAppBar extends StatelessWidget {
       ],
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-      title: const Text(
+      title: Text(
         'Task Trail',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+          shadows: [
+            Shadow(
+              offset: const Offset(2, 2),
+              blurRadius: 3,
+              color: Colors.black.withOpacity(0.1),
+            ),
+          ],
+        ),
       ),
       flexibleSpace: FlexibleSpaceBar(
         background: Padding(
