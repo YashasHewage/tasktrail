@@ -4,7 +4,7 @@ class CategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromARGB(255, 3, 1, 1),
       body: Container(
         margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
         child: Padding(
@@ -119,7 +119,7 @@ class CategoriesPage extends StatelessWidget {
         onPressed: () {},
         style: ElevatedButton.styleFrom(
           fixedSize: Size(180, 68),
-          backgroundColor: const Color(0xFFE4E4E4),
+          backgroundColor: Color.fromARGB(255, 241, 241, 241),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(11),
           ),

@@ -44,11 +44,6 @@ class _MydrawerState extends State<Mydrawer> {
               children: [
                 Padding(
                     padding: const EdgeInsets.only(top: 100.0),
-                    // child: Icon(
-                    //   Icons.lock_open_rounded,
-                    //   size: 80,
-                    //   color: Theme.of(context).colorScheme.inversePrimary,
-                    // ),
                     child: Image.asset(
                       'assets/images/avatar1.png',
                       height: 120,
@@ -103,7 +98,7 @@ class _MydrawerState extends State<Mydrawer> {
                 // ),
 
                 MyDrawerTile(
-                  text: 'Add task',
+                  text: 'Add Task',
                   icon: Icons.add_to_photos_rounded,
                   onTap: () {
                     Navigator.pop(context);
