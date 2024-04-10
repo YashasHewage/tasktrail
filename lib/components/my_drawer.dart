@@ -69,7 +69,7 @@ class _MydrawerState extends State<Mydrawer> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SettingsPage(),
+                        builder: (context) => ProfileView(),
                       ),
                     );
                   },
