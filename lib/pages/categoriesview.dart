@@ -4,7 +4,7 @@ class CategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 3, 1, 1),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       body: Container(
         margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
         child: Padding(
