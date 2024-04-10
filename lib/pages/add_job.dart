@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tasktrail/services/firrestore.dart';
 
 class AddJob extends StatefulWidget {
-  const AddJob({super.key});
+  const AddJob({Key? key}) : super(key: key);
 
   @override
   State<AddJob> createState() => _AddJobState();
@@ -17,14 +17,16 @@ class _AddJobState extends State<AddJob> {
   final slotsController = TextEditingController();
   final addressController = TextEditingController();
   final contactController = TextEditingController();
-  final categoryController = TextEditingController();
+  String? category;
+  String ownerEmail = 'sineth2@gmail.com';
 
   void addJob() async {
     if (titleController.text.isEmpty ||
         descriptionController.text.isEmpty ||
         priceController.text.isEmpty ||
         slotsController.text.isEmpty ||
-        addressController.text.isEmpty) {
+        addressController.text.isEmpty ||
+        category == null) {
       showDialog(
         context: context,
         builder: (context) => const AlertDialog(
@@ -45,18 +47,19 @@ class _AddJobState extends State<AddJob> {
       int.parse(priceController.text),
       int.parse(slotsController.text),
       addressController.text,
+      category!,
       contactController.text,
-      categoryController.text,
+      ownerEmail,
     );
 
-// clear fields
+    // clear fields
     titleController.clear();
     descriptionController.clear();
     priceController.clear();
     slotsController.clear();
     addressController.clear();
     contactController.clear();
-    categoryController.clear();
+    category = null;
   }
 
   @override
@@ -67,7 +70,7 @@ class _AddJobState extends State<AddJob> {
         title: const Text("Add New Job"),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 25),
         child: Form(
           child: ListView(
             children: <Widget>[
@@ -143,8 +146,8 @@ class _AddJobState extends State<AddJob> {
                 ),
               ),
               const SizedBox(height: 10),
-              TextFormField(
-                controller: categoryController,
+              DropdownButtonFormField<String>(
+                value: category,
                 decoration: InputDecoration(
                   labelText: 'Category',
                   border: UnderlineInputBorder(
@@ -155,8 +158,21 @@ class _AddJobState extends State<AddJob> {
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.tertiary,
                 ),
+                items: <String>['Category 1', 'Category 2', 'Category 3']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  print(newValue);
+                  setState(() {
+                    category = newValue;
+                  });
+                },
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 70),
               ElevatedButton(
                 child: Text('Submit',
                     style: TextStyle(

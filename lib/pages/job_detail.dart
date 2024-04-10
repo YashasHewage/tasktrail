@@ -6,8 +6,8 @@ class TaskView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Task View'),
-        backgroundColor: Color(0xFF406AFF),
+        title: const Text('Task View'),
+        backgroundColor: const Color(0xFF406AFF),
       ),
       body: Column(
         children: [
@@ -15,10 +15,10 @@ class TaskView extends StatelessWidget {
             width: 393,
             height: 845,
             clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(color: Colors.white),
+            decoration: const BoxDecoration(color: Colors.white),
             child: Stack(
               children: [
-                Positioned(
+                const Positioned(
                   left: 161,
                   top: 555,
                   child: Text(
@@ -54,7 +54,7 @@ class TaskView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 105,
                           top: 13,
                           child: Text(
@@ -72,7 +72,7 @@ class TaskView extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   left: 60,
                   top: 76,
                   child: Text(
@@ -108,7 +108,7 @@ class TaskView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 58,
                           top: 32,
                           child: Text(
@@ -122,7 +122,7 @@ class TaskView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 11,
                           top: 119,
                           child: Text(
@@ -136,7 +136,7 @@ class TaskView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 11,
                           top: 183,
                           child: Text(
@@ -150,7 +150,7 @@ class TaskView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 11,
                           top: 228,
                           child: Text(
@@ -164,7 +164,7 @@ class TaskView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 11,
                           top: 96,
                           child: Text(
@@ -178,7 +178,7 @@ class TaskView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 11,
                           top: 430,
                           child: Text(
@@ -192,7 +192,7 @@ class TaskView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 11,
                           top: 160,
                           child: Text(
@@ -206,7 +206,7 @@ class TaskView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 11,
                           top: 251,
                           child: SizedBox(
@@ -223,7 +223,7 @@ class TaskView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 96,
                           top: 119,
                           child: Text(
@@ -237,7 +237,7 @@ class TaskView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 11,
                           top: 453,
                           child: Text(
@@ -277,7 +277,7 @@ class TaskView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 20,
                           top: 12,
                           child: Text(
@@ -291,7 +291,7 @@ class TaskView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 83,
                           top: 46,
                           child: Text(
@@ -305,7 +305,7 @@ class TaskView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                           left: 84,
                           top: 69,
                           child: Text(
@@ -326,7 +326,7 @@ class TaskView extends StatelessWidget {
                             width: 53,
                             height: 51,
                             decoration: ShapeDecoration(
-                              image: DecorationImage(
+                              image: const DecorationImage(
                                 image: NetworkImage(
                                     "https://via.placeholder.com/53x51"),
                                 fit: BoxFit.fill,
@@ -347,7 +347,7 @@ class TaskView extends StatelessWidget {
                           child: Container(
                             width: 40,
                             height: 40,
-                            decoration: ShapeDecoration(
+                            decoration: const ShapeDecoration(
                               color: Color(0xFF928FFF),
                               shape: OvalBorder(),
                             ),
@@ -359,7 +359,7 @@ class TaskView extends StatelessWidget {
                           child: Container(
                             width: 40,
                             height: 40,
-                            decoration: ShapeDecoration(
+                            decoration: const ShapeDecoration(
                               color: Color(0xFF928FFF),
                               shape: OvalBorder(),
                             ),
@@ -374,8 +374,8 @@ class TaskView extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 1.75, vertical: 3.50),
                             clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(),
-                            child: Row(
+                            decoration: const BoxDecoration(),
+                            child: const Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -395,7 +395,7 @@ class TaskView extends StatelessWidget {
                               bottom: 3.25,
                             ),
                             clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(),
+                            decoration: const BoxDecoration(),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,

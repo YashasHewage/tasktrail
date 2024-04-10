@@ -24,15 +24,16 @@ class FirestoreService {
       FirebaseFirestore.instance.collection('jobs');
 
   Future<void> addJob(String title, String description, int price, int slots,
-      String address, String category, String contact) {
+      String address, String category, String contact, String ownerEmail) {
     return jobs.add({
       'title': title,
       'description': description,
       'price': price,
       'slots': slots,
       'address': address,
-      'category': 'General', // default category 'General'
-      'contact': '0700000000', // default contact '0700000000
+      'category': category,
+      'contact': contact,
+      'ownerEmail': ownerEmail,
       'createdAt': Timestamp.now(),
     });
   }
@@ -43,4 +44,19 @@ class FirestoreService {
 
     return jobsStream;
   }
+
+  // fetch my ads
+  Stream<QuerySnapshot> getMyAds(String ownerEmail) {
+    final jobsStream1 =
+        jobs.where('ownerEmail', isEqualTo: ownerEmail).snapshots();
+
+    return jobsStream1;
+  }
+
+  //delete a job
+  Future<void> deleteJob(String documentId) {
+    return jobs.doc(documentId).delete();
+  }
+
+
 }

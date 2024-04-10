@@ -41,7 +41,7 @@ class _FetchDataState extends State<FetchData> {
         title: const Text("Fetch data"),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: firestoreService.getJobs(),
+        stream: firestoreService.getMyAds("sineth1@gmail.com"),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
