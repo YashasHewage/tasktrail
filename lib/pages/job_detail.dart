@@ -211,26 +211,118 @@ class TaskView extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: Container(
-        margin: const EdgeInsets.only(bottom: 150),
-        width: 320,
-        child: FloatingActionButton(
-          onPressed: () {},
-          child: Text(
-            'Enroll Now',
-            style: GoogleFonts.poppins(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          backgroundColor: Color.fromARGB(255, 67, 98, 235),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
+floatingActionButton: Container(
+  margin: const EdgeInsets.only(bottom: 150),
+  width: 320,
+  child: FloatingActionButton(
+    onPressed: () {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+           return Container(
+  height: MediaQuery.of(context).size.height * 0.32,
+  child: SingleChildScrollView(
+    child: Container(
+      margin: const EdgeInsets.only(top: 30, left: 20, right: 20),
+      child: Column(
+children: <Widget>[
+  Row(
+    children: [
+      Text(
+        'About the Advertiser',
+        style: GoogleFonts.poppins(
+          color: Color(0xFF928FFF),
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    ],
+  ),
+  SizedBox(height: 20),
+  Row(
+    children: <Widget>[
+      CircleAvatar(
+        radius: 32,
+        backgroundImage: AssetImage('image'),
+      ),
+      SizedBox(width: 15),
+      Expanded(
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+              Expanded(
+                child: Text(
+                  'Navishka Malalage',
+                  overflow: TextOverflow.visible,
+                  style: GoogleFonts.poppins(
+                  color: const Color.fromARGB(255, 27, 27, 27),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              ],
+            ),
+            SizedBox(height: 2),
+            Row(
+              children: <Widget>[
+              Expanded(
+                child: Text(
+                  '23.06.2024',
+                  overflow: TextOverflow.visible,
+                  style: GoogleFonts.poppins(
+                  color: Color.fromARGB(255, 150, 150, 150),
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      SizedBox(width: 10),
+      CircleAvatar(
+        radius: 22,
+                backgroundColor: Color(0xFF928FFF),
+
+        child: Icon(Icons.phone, size: 22),
+      ),
+      SizedBox(width: 10),
+      CircleAvatar(
+        radius: 22,
+                backgroundColor: Color(0xFF928FFF),
+        child: Icon(Icons.mail, size: 22),
+      ),
+    ],
+  ),
+]
+      ),
+    ),
+  ),
+);
+        },
+      );
+    },
+    child: Text(
+      'Enroll Now',
+      style: GoogleFonts.poppins(
+        color: Colors.white,
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+      ),
+    ),
+    backgroundColor: Color.fromARGB(255, 67, 98, 235),
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(15), 
+    ),
+  ),
+),
+floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+
+       
     );
   }
 }
