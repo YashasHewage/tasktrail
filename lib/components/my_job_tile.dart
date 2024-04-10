@@ -125,7 +125,7 @@ class JobCard extends StatelessWidget {
                         Text(
                           '$address',
                           style: const TextStyle(
-                            color: Color(0xFF868686),
+                            color: Color.fromARGB(255, 109, 109, 109),
                             fontSize: 10,
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w400,
@@ -184,7 +184,7 @@ class JobCard extends StatelessWidget {
                       'Rs $price',
                       style: const TextStyle(
                         color: Color(0xFF434F76),
-                        fontSize: 14,
+                        fontSize: 15,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w600,
                         height: 0.12,

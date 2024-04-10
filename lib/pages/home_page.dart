@@ -47,14 +47,6 @@ class _HomePageState extends State<HomePage>
                   'assets/images/landingpage.png',
                   height: 200,
                 ),
-                Text(
-                  authService.getEmail(),
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
               ],
             ),
           ),
