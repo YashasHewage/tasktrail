@@ -43,11 +43,6 @@ class _MydrawerState extends State<Mydrawer> {
               children: [
                 Padding(
                     padding: const EdgeInsets.only(top: 100.0),
-                    // child: Icon(
-                    //   Icons.lock_open_rounded,
-                    //   size: 80,
-                    //   color: Theme.of(context).colorScheme.inversePrimary,
-                    // ),
                     child: Image.asset(
                       'assets/images/avatar1.png',
                       height: 120,
@@ -72,24 +67,37 @@ class _MydrawerState extends State<Mydrawer> {
                   icon: Icons.home,
                   onTap: () => Navigator.pop(context),
                 ),
-
-                //home list tile
                 MyDrawerTile(
-                  text: 'Settings',
-                  icon: Icons.settings,
+                  text: 'Categories',
+                  icon: Icons.category,
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ProfileView(),
+                        builder: (context) => CategoriesPage(),
                       ),
                     );
                   },
                 ),
 
+                //home list tile
+                // MyDrawerTile(
+                //   text: 'Settings',
+                //   icon: Icons.settings,
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => ProfileView(),
+                //       ),
+                //     );
+                //   },
+                // ),
+
                 MyDrawerTile(
-                  text: 'Add task',
+                  text: 'Add Task',
                   icon: Icons.add_to_photos_rounded,
                   onTap: () {
                     Navigator.pop(context);
@@ -116,18 +124,32 @@ class _MydrawerState extends State<Mydrawer> {
                 ),
 
                 MyDrawerTile(
-                  text: 'Fetch Data',
-                  icon: Icons.add_to_photos_rounded,
+                  text: 'Settings',
+                  icon: Icons.settings,
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => CategoriesPage(),
+                        builder: (context) => ProfileView(),
                       ),
                     );
                   },
                 ),
+
+                // MyDrawerTile(
+                //   text: 'Fetch Data',
+                //   icon: Icons.add_to_photos_rounded,
+                //   onTap: () {
+                //     Navigator.pop(context);
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(
+                //         builder: (context) => CategoriesPage(),
+                //       ),
+                //     );
+                //   },
+                // ),
 
                 const Spacer(),
 

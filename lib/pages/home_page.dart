@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage>
               children: [
                 Image.asset(
                   'assets/images/landingpage.png',
-                  height: 200,
+                  height: 220,
                 ),
               ],
             ),
