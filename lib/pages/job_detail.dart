@@ -71,12 +71,6 @@ class _TaskViewState extends State<TaskView> {
                           ),
                         ),
                         SizedBox(height: 20),
-                        ElevatedButton(
-                            onPressed: () {
-                              firestoreService.enrollUser(
-                                  widget.id, authService.getEmail());
-                            },
-                            child: const Text("meka change karanna epa")),
                         Container(
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -279,6 +273,7 @@ class _TaskViewState extends State<TaskView> {
             width: 320,
             child: FloatingActionButton(
               onPressed: () {
+                firestoreService.enrollUser(widget.id, authService.getEmail());
                 showModalBottomSheet(
                   context: context,
                   builder: (BuildContext context) {
