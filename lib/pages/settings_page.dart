@@ -23,7 +23,7 @@ class _ProfileViewState extends State<ProfileView> {
           : Colors.white, // Adjust dark mode background color
       appBar: AppBar(
         title: Text(
-          "Profile",
+          "Settings",
           style: TextStyle(
               fontWeight: FontWeight.w500,
               color: _switchValue ? Colors.white : Colors.black),
@@ -211,7 +211,7 @@ class _ProfileViewState extends State<ProfileView> {
                                     : Icons.toggle_off,
                                 size: 42,
                                 color: _switchValue
-                                    ? Colors.green
+                                    ? const Color.fromRGBO(146, 143, 255, 1)
                                     : Colors
                                         .grey, // Adjust icon color based on theme
                               ),

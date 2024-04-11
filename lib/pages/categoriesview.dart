@@ -54,8 +54,12 @@ class CategoriesPage extends StatelessWidget {
                       Expanded(
                         child: Column(
                           children: [
-                            _buildCategoryButton('Engineering', context,
-                                addIcon: true, icon: Icons.lightbulb_outline),
+                            _buildCategoryButton(
+                              'Engineering',
+                              context,
+                              addIcon: true,
+                              icon: Icons.lightbulb_outline_rounded,
+                            ),
                             const SizedBox(height: 10),
                             _buildCategoryButton('IT', context,
                                 addIcon: true, icon: Icons.laptop),
@@ -150,11 +154,12 @@ class CategoriesPage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.black,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
-            if (addIcon && icon != null) Icon(icon, color: Colors.blue),
+            if (addIcon && icon != null)
+              Icon(icon, color: const Color.fromRGBO(146, 143, 243, 1)),
           ],
         ),
       ),

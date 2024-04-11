@@ -108,7 +108,7 @@ class _LoginpageState extends State<Loginpage> {
                                       const EdgeInsets.only(right: 9, left: 9),
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       const Text(
                                         'Sign in',
@@ -139,7 +139,7 @@ class _LoginpageState extends State<Loginpage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Text(
-                                      'already have an account?',
+                                      'Already have an Account?',
                                       style: TextStyle(
                                         fontSize: 14,
                                         color: Color.fromRGBO(160, 147, 183, 1),
@@ -150,7 +150,7 @@ class _LoginpageState extends State<Loginpage> {
                                     GestureDetector(
                                       onTap: widget.onTap,
                                       child: Text(
-                                        'register',
+                                        'Register',
                                         style: TextStyle(
                                           fontSize: 14,
                                           color: Theme.of(context)

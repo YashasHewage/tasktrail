@@ -22,12 +22,12 @@ class MyTextFeild extends StatelessWidget {
         style:
             const TextStyle(color: Colors.black), // Change the text color here
         decoration: InputDecoration(
-          fillColor: Colors.grey.shade100,
+          fillColor: Color.fromARGB(226, 245, 245, 245),
           filled: true,
           hintText: hintText,
           hintStyle: const TextStyle(
               color: Color.fromRGBO(
-                  127, 110, 157, 1)), // Change the hint text color here
+                  190, 190, 190, 1)), // Change the hint text color here
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none, // Remove the border side
