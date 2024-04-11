@@ -129,8 +129,8 @@ class _RegiterState extends State<RegisterPage> {
                                       ),
                                       CircleAvatar(
                                         radius: 30,
-                                        backgroundColor:
-                                            Color.fromRGBO(160, 147, 183, 1),
+                                        backgroundColor: const Color.fromRGBO(
+                                            160, 147, 183, 1),
                                         child: IconButton(
                                           color: Colors.white,
                                           onPressed: register,
