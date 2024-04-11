@@ -114,7 +114,7 @@ class JobCard extends StatelessWidget {
                   left: 20,
                   top: 51,
                   child: SizedBox(
-                    width: 200,
+                    width: 250,
                     height: 14,
                     child: Row(
                       children: [
