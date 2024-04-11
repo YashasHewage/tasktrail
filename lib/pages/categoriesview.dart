@@ -55,7 +55,7 @@ class CategoriesPage extends StatelessWidget {
                                 addIcon: true, icon: Icons.laptop),
                             const SizedBox(height: 10),
                             _buildCategoryButton('Healthcare', context,
-                                addIcon: true, icon: Icons.add),
+                                addIcon: true, icon: Icons.health_and_safety),
                             const SizedBox(height: 10),
                             _buildCategoryButton(
                                 'Science and Technology', context,
@@ -69,7 +69,7 @@ class CategoriesPage extends StatelessWidget {
                                 addIcon: true, icon: Icons.laptop),
                             const SizedBox(height: 10),
                             _buildCategoryButton('Healthcare', context,
-                                addIcon: true, icon: Icons.add),
+                                addIcon: true, icon: Icons.health_and_safety),
                           ],
                         ),
                       ),

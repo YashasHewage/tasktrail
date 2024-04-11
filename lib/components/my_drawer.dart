@@ -113,7 +113,7 @@ class _MydrawerState extends State<Mydrawer> {
                 // ),
 
                 MyDrawerTile(
-                  text: 'Add Task',
+                  text: 'Publish Task',
                   icon: Icons.add_to_photos_rounded,
                   onTap: () {
                     Navigator.pop(context);
