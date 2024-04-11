@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:tasktrail/components/edit_profile_model.dart';
 
 class ProfileView extends StatefulWidget {
   @override
@@ -67,8 +68,16 @@ class _ProfileViewState extends State<ProfileView> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         IconButton(
-                          onPressed: () {},
                           icon: const Icon(Icons.edit),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditProfile(),
+                              ),
+                            );
+                          },
                           iconSize: 25,
                           color: const Color.fromARGB(255, 100, 100, 100),
                         ),
