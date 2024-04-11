@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:tasktrail/components/my_button.dart';
 import 'package:tasktrail/components/my_textfeild.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
 
@@ -121,8 +120,8 @@ class _RegiterState extends State<RegisterPage> {
                                       ),
                                       CircleAvatar(
                                         radius: 30,
-                                        backgroundColor:
-                                            Color.fromRGBO(160, 147, 183, 1),
+                                        backgroundColor: const Color.fromRGBO(
+                                            160, 147, 183, 1),
                                         child: IconButton(
                                           color: Colors.white,
                                           onPressed: register,
