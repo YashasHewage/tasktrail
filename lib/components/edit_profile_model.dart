@@ -10,6 +10,8 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   bool isSwitched = false;
+  String selectedAvatar =
+      'assets/images/avatar1.png'; // Default selected avatar
 
   final TextEditingController _emailController = TextEditingController();
 
@@ -18,6 +20,48 @@ class _EditProfileState extends State<EditProfile> {
   void initState() {
     super.initState();
     _emailController.text = authService.getEmail(); // Set default email value
+  }
+
+  void _showAvatarEditor() {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          height: 300,
+          padding: EdgeInsets.all(20),
+          child: GridView.count(
+            crossAxisCount: 3, // Number of columns
+            crossAxisSpacing: 10, // Spacing between columns
+            mainAxisSpacing: 10, // Spacing between rows
+            children: [
+              _buildAvatar('assets/images/avatar1.png'),
+              _buildAvatar('assets/images/avatar2.png'),
+              _buildAvatar('assets/images/avatar3.png'),
+              _buildAvatar('assets/images/avatar4.png'),
+              _buildAvatar('assets/images/avatar5.png'),
+              _buildAvatar('assets/images/avatar6.png'),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildAvatar(String imagePath) {
+    return GestureDetector(
+      onTap: () {
+        // Update the selected avatar path when an avatar is tapped
+        setState(() {
+          selectedAvatar = imagePath;
+        });
+        // Close the bottom sheet after selecting an avatar
+        Navigator.of(context).pop();
+      },
+      child: CircleAvatar(
+        radius: 70,
+        backgroundImage: AssetImage(imagePath),
+      ),
+    );
   }
 
   @override
@@ -34,7 +78,21 @@ class _EditProfileState extends State<EditProfile> {
             const SizedBox(height: 40),
             CircleAvatar(
               radius: 70,
-              backgroundImage: AssetImage('assets/images/avatar1.png'),
+              backgroundImage:
+                  AssetImage(selectedAvatar), // Use selected avatar here
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: _showAvatarEditor,
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(15),
+                backgroundColor: const Color.fromRGBO(
+                    64, 106, 255, 1), // Color of the "Save" button
+              ),
+              child: Text(
+                'Edit Avatar',
+                style: TextStyle(color: Colors.white), // Text color
+              ),
             ),
             const SizedBox(height: 10),
             TextField(
