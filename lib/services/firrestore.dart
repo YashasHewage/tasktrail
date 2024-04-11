@@ -44,7 +44,17 @@ class FirestoreService {
       'category': category,
       'contact': contact,
       'ownerEmail': ownerEmail,
+      'EnrolledList': [],
       'createdAt': Timestamp.now(),
+    });
+  }
+
+// enroll user to a job
+  void enrollUser(String jobId, String userEmail) {
+    jobs.doc(jobId).update({
+      'EnrolledList': FieldValue.arrayUnion([
+        {'email': userEmail, 'status': 'pending'}
+      ]),
     });
   }
 

@@ -70,10 +70,16 @@ class _TaskViewState extends State<TaskView> {
                           ),
                         ),
                         SizedBox(height: 20),
+                        ElevatedButton(
+                            onPressed: () {
+                              firestoreService.enrollUser(
+                                  widget.id, authService.getEmail());
+                            },
+                            child: const Text("meka change karanna epa")),
                         Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Color.fromARGB(255, 163, 163, 163),
+                              color: const Color.fromARGB(255, 163, 163, 163),
                               width: 1,
                             ),
                             color: Colors.white,
