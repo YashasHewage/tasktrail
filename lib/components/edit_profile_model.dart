@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tasktrail/services/auth/auth_service.dart';
 
 class EditProfile extends StatefulWidget {
   @override
@@ -9,6 +10,15 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   bool isSwitched = false;
+
+  final TextEditingController _emailController = TextEditingController();
+
+  final AuthService authService = AuthService();
+
+  void initState() {
+    super.initState();
+    _emailController.text = authService.getEmail(); // Set default email value
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +34,24 @@ class _EditProfileState extends State<EditProfile> {
             const SizedBox(height: 40),
             CircleAvatar(
               radius: 70,
-              backgroundImage: AssetImage('assets/images/user.JPG'),
+              backgroundImage: AssetImage('assets/images/avatar1.png'),
             ),
-            const SizedBox(height: 20),
-            itemProfile('Name', 'nenmkm', CupertinoIcons.person),
             const SizedBox(height: 10),
-            itemProfile('Phone', '03107085816', CupertinoIcons.phone),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'User Name',
+              ),
+            ),
             const SizedBox(height: 10),
-            itemProfile(
-                'Address', 'abc address, xyz city', CupertinoIcons.location),
-            const SizedBox(height: 10),
-            itemProfile(
-                'Email', 'ahadhashmideveloper@gmail.com', CupertinoIcons.mail),
+            TextFormField(
+              enabled: false,
+              controller: _emailController, // Disable editing
+              decoration: InputDecoration(
+                labelText: "Email Address",
+              ),
+            ),
             const SizedBox(
-              height: 20,
+              height: 40,
             ),
             SizedBox(
               width: double.infinity,
@@ -45,32 +59,15 @@ class _EditProfileState extends State<EditProfile> {
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.all(15),
+                    backgroundColor: const Color.fromRGBO(64, 106, 255, 1),
                   ),
-                  child: const Text('Edit Profile')),
+                  child: const Text(
+                    'Save',
+                    style: TextStyle(color: Colors.white),
+                  )),
             )
           ],
         ),
-      ),
-    );
-  }
-
-  itemProfile(String title, String subtitle, IconData iconData) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-                offset: Offset(0, 5),
-                color: Colors.deepOrange.withOpacity(.2),
-                spreadRadius: 2,
-                blurRadius: 10)
-          ]),
-      child: ListTile(
-        title: Text(title),
-        subtitle: Text(subtitle),
-        leading: Icon(iconData),
-        tileColor: Colors.white,
       ),
     );
   }
