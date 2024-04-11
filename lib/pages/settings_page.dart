@@ -9,7 +9,7 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  bool isSwitched = false;
+  bool _switchValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -70,14 +70,14 @@ class _ProfileViewState extends State<ProfileView> {
                         IconButton(
                           icon: const Icon(Icons.edit),
                           onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EditProfile(),
-                                ),
-                              );
-                            },          
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditProfile(),
+                              ),
+                            );
+                          },
                           iconSize: 25,
                           color: const Color.fromARGB(255, 100, 100, 100),
                         ),
@@ -105,7 +105,7 @@ class _ProfileViewState extends State<ProfileView> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  alignment: Alignment.center,
+                  // alignment: Alignment.center,
                   width: 380,
                   height: 60,
                   decoration: BoxDecoration(
@@ -113,7 +113,7 @@ class _ProfileViewState extends State<ProfileView> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Padding(
-                    padding: EdgeInsets.all(15.0),
+                    padding: EdgeInsets.all(0.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -121,29 +121,67 @@ class _ProfileViewState extends State<ProfileView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              "Dark Mode",
-                              style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w400,
+                            Padding(
+                              padding: EdgeInsets.only(left: 20.0),
+                              child: Text(
+                                "Dark Mode",
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
                             )
                           ],
                         ),
                         Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            //   Switch(
-                            //     value: isSwitched,
-                            //     onChanged: (value) {
-                            //       setState(() {
-                            //         isSwitched = value;
-                            //       });
-                            //     },
+                            // CupertinoSwitch(
+                            //   value: _switchValue,
+                            //   onChanged: (value) {
+                            //     setState(() {
+                            //       _switchValue = value;
+                            //     });
+                            //   },
                             // ),
+                            Padding(
+                              padding: EdgeInsets.only(right: 20.0),
+                              child: Icon(
+                                Icons.toggle_off_sharp,
+                                size: 60,
+                                color: Color.fromARGB(255, 133, 133, 133),
+                              ),
+                            )
                           ],
                         )
                       ],
                     ),
+                  ),
+                )
+              ],
+            ),
+            const SizedBox(
+              height: 350,
+            ),
+            const Column(
+              children: [
+                Text(
+                  "Version 1.0.0",
+                  style: TextStyle(
+                    color: Color.fromRGBO(155, 155, 155, 1),
+                  ),
+                ),
+                Text(
+                  "© 2024 TaskTrail",
+                  style: TextStyle(
+                    color: Color.fromRGBO(155, 155, 155, 1),
+                  ),
+                ),
+                Text(
+                  "All Rights Reserved.",
+                  style: TextStyle(
+                    color: Color.fromRGBO(155, 155, 155, 1),
                   ),
                 )
               ],
