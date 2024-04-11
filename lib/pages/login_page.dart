@@ -12,8 +12,6 @@ class Loginpage extends StatefulWidget {
   State<Loginpage> createState() => _LoginpageState();
 }
 
-
-
 class _LoginpageState extends State<Loginpage> {
   final TextEditingController emailController = TextEditingController();
 
@@ -35,8 +33,6 @@ class _LoginpageState extends State<Loginpage> {
     try {
       await _authService.signInWithEmailAndPassword(
           emailController.text, passwordController.text);
-
-      
 
       showDialog(
         context: context,
