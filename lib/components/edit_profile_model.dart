@@ -75,7 +75,7 @@ class _EditProfileState extends State<EditProfile> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            const SizedBox(height: 40),
+            const SizedBox(height: 10),
             CircleAvatar(
               radius: 70,
               backgroundImage:
@@ -97,7 +97,7 @@ class _EditProfileState extends State<EditProfile> {
             const SizedBox(height: 10),
             TextField(
               decoration: InputDecoration(
-                labelText: 'User Name',
+                labelText: 'Username',
               ),
             ),
             const SizedBox(height: 10),
@@ -109,7 +109,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
             ),
             const SizedBox(
-              height: 40,
+              height: 20,
             ),
             SizedBox(
               width: double.infinity,
