@@ -16,7 +16,9 @@ class _ProfileViewState extends State<ProfileView> {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
       appBar: AppBar(
-        title: const Text("Profile"),
+        title: const Text("Profile",
+            style: TextStyle(fontWeight: FontWeight.w500)),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -147,12 +149,14 @@ class _ProfileViewState extends State<ProfileView> {
                             // ),
                             Padding(
                               padding: EdgeInsets.only(right: 20.0),
-                              child: Icon(
-                                Icons.toggle_off_sharp,
-                                size: 60,
-                                color: Color.fromARGB(255, 133, 133, 133),
-                              ),
-                            )
+                              child: IconButton(
+                                  onPressed: null,
+                                  icon: Icon(
+                                    Icons.toggle_off_sharp,
+                                    size: 42,
+                                    color: Color.fromARGB(255, 133, 133, 133),
+                                  )),
+                            ),
                           ],
                         )
                       ],
