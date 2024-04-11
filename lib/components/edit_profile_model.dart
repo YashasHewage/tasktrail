@@ -1,9 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
 
 class EditProfile extends StatefulWidget {
+  final bool isDarkMode;
+
+  EditProfile({required this.isDarkMode});
+
   @override
   _EditProfileState createState() => _EditProfileState();
 }
@@ -50,11 +52,10 @@ class _EditProfileState extends State<EditProfile> {
   Widget _buildAvatar(String imagePath) {
     return GestureDetector(
       onTap: () {
-        // Update the selected avatar path when an avatar is tapped
         setState(() {
           selectedAvatar = imagePath;
         });
-        // Close the bottom sheet after selecting an avatar
+
         Navigator.of(context).pop();
       },
       child: CircleAvatar(
@@ -66,63 +67,70 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = widget.isDarkMode;
+
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+      backgroundColor: isDarkMode ? Colors.grey[900] : Colors.white,
       appBar: AppBar(
-        title: const Text(" Edit Profile"),
+        title: Text("Edit Profile",
+            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black)),
+        backgroundColor: isDarkMode ? Colors.grey[900] : Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             CircleAvatar(
               radius: 70,
-              backgroundImage:
-                  AssetImage(selectedAvatar), // Use selected avatar here
+              backgroundImage: AssetImage(selectedAvatar),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             ElevatedButton(
               onPressed: _showAvatarEditor,
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(15),
-                backgroundColor: const Color.fromRGBO(
-                    64, 106, 255, 1), // Color of the "Save" button
+                backgroundColor: Color.fromRGBO(64, 106, 255, 1),
               ),
               child: Text(
                 'Edit Avatar',
-                style: TextStyle(color: Colors.white), // Text color
+                style: TextStyle(color: Colors.white),
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             TextField(
               decoration: InputDecoration(
                 labelText: 'Username',
+                labelStyle:
+                    TextStyle(color: isDarkMode ? Colors.white : Colors.black),
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             TextFormField(
               enabled: false,
-              controller: _emailController, // Disable editing
+              controller: _emailController,
               decoration: InputDecoration(
                 labelText: "Email Address",
+                labelStyle:
+                    TextStyle(color: isDarkMode ? Colors.white : Colors.black),
               ),
             ),
-            const SizedBox(
+            SizedBox(
               height: 20,
             ),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.all(15),
-                    backgroundColor: const Color.fromRGBO(64, 106, 255, 1),
-                  ),
-                  child: const Text(
-                    'Save',
-                    style: TextStyle(color: Colors.white),
-                  )),
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(15),
+                  backgroundColor: Color.fromRGBO(64, 106, 255, 1),
+                ),
+                child: Text(
+                  'Save',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             )
           ],
         ),

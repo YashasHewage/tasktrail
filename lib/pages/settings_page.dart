@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tasktrail/components/edit_profile_model.dart';
+import 'package:tasktrail/services/auth/auth_service.dart';
+import 'package:tasktrail/services/firrestore.dart';
 
 class ProfileView extends StatefulWidget {
   @override
@@ -11,14 +12,24 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   bool _switchValue = false;
 
+  final AuthService authService = AuthService();
+  final FirestoreService firestoreService = FirestoreService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+      backgroundColor: _switchValue
+          ? Colors.grey[900]
+          : Colors.white, // Adjust dark mode background color
       appBar: AppBar(
-        title: const Text("Profile",
-            style: TextStyle(fontWeight: FontWeight.w500)),
+        title: Text(
+          "Profile",
+          style: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: _switchValue ? Colors.white : Colors.black),
+        ),
         centerTitle: true,
+        backgroundColor: _switchValue ? Colors.grey[900] : Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -28,7 +39,10 @@ class _ProfileViewState extends State<ProfileView> {
               width: double.infinity,
               height: 160,
               decoration: BoxDecoration(
-                color: const Color.fromRGBO(146, 143, 255, 0.2),
+                color: _switchValue
+                    ? Colors.grey[800]
+                    : const Color.fromRGBO(
+                        146, 143, 255, 0.2), // Adjust dark mode container color
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Padding(
@@ -40,29 +54,56 @@ class _ProfileViewState extends State<ProfileView> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Row(
-                          children: [
-                            const Image(
-                              image: AssetImage("assets/images/avatar1.png"),
-                              height: 90,
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(left: 20),
-                              child: const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "User_1000",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                        FutureBuilder<DocumentSnapshot>(
+                          future: firestoreService
+                              .getUserByEmail(authService.getEmail()),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const CircularProgressIndicator();
+                            }
+                            if (snapshot.hasError) {
+                              return const Text('Error fetching user details');
+                            }
+                            final userData =
+                                snapshot.data!.data() as Map<String, dynamic>;
+                            return Row(
+                              children: [
+                                Image(
+                                  image: AssetImage(
+                                      "assets/images/avatar${userData['imageId']}.png"),
+                                  height: 90,
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(left: 20),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        userData['username'],
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: _switchValue
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
+                                      ),
+                                      Text(
+                                        authService.getEmail(),
+                                        style: TextStyle(
+                                          color: _switchValue
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Text("userdata100@gmail.com")
-                                ],
-                              ),
-                            ),
-                          ],
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -72,16 +113,20 @@ class _ProfileViewState extends State<ProfileView> {
                         IconButton(
                           icon: const Icon(Icons.edit),
                           onPressed: () {
-                            Navigator.pop(context);
+                            // Navigate to EditProfile when edit button is pressed
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => EditProfile(),
+                                builder: (context) =>
+                                    EditProfile(isDarkMode: _switchValue),
                               ),
                             );
                           },
                           iconSize: 25,
-                          color: const Color.fromARGB(255, 100, 100, 100),
+                          color: _switchValue
+                              ? Colors.white
+                              : const Color.fromARGB(255, 100, 100,
+                                  100), // Adjust icon color based on theme
                         ),
                       ],
                     ),
@@ -92,11 +137,17 @@ class _ProfileViewState extends State<ProfileView> {
             const SizedBox(
               height: 50,
             ),
-            const Row(
+            Row(
               children: [
                 Text(
                   "Settings",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: _switchValue
+                        ? Colors.white
+                        : Colors.black, // Adjust text color based on theme
+                  ),
                 ),
               ],
             ),
@@ -111,11 +162,14 @@ class _ProfileViewState extends State<ProfileView> {
                   width: 380,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: const Color.fromRGBO(146, 143, 255, 0.2),
+                    color: _switchValue
+                        ? Colors.grey[800]
+                        : const Color.fromRGBO(146, 143, 255,
+                            0.2), // Adjust dark mode container color
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Padding(
-                    padding: EdgeInsets.all(0.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(0.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -124,12 +178,16 @@ class _ProfileViewState extends State<ProfileView> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left: 20.0),
+                              padding: const EdgeInsets.only(left: 20.0),
                               child: Text(
                                 "Dark Mode",
                                 style: TextStyle(
                                   fontSize: 17,
                                   fontWeight: FontWeight.w400,
+                                  color: _switchValue
+                                      ? Colors.white
+                                      : Colors
+                                          .black, // Adjust text color based on theme
                                 ),
                               ),
                             )
@@ -139,23 +197,24 @@ class _ProfileViewState extends State<ProfileView> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            // CupertinoSwitch(
-                            //   value: _switchValue,
-                            //   onChanged: (value) {
-                            //     setState(() {
-                            //       _switchValue = value;
-                            //     });
-                            //   },
-                            // ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 20.0),
-                              child: IconButton(
-                                  onPressed: null,
-                                  icon: Icon(
-                                    Icons.toggle_off_sharp,
-                                    size: 42,
-                                    color: Color.fromARGB(255, 133, 133, 133),
-                                  )),
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _switchValue =
+                                      !_switchValue; // Toggle the switch value
+                                  // You can add logic here to update the theme based on _switchValue
+                                });
+                              },
+                              icon: Icon(
+                                _switchValue
+                                    ? Icons.toggle_on
+                                    : Icons.toggle_off,
+                                size: 42,
+                                color: _switchValue
+                                    ? Colors.green
+                                    : Colors
+                                        .grey, // Adjust icon color based on theme
+                              ),
                             ),
                           ],
                         )
