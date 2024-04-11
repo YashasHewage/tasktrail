@@ -1,21 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tasktrail/services/auth/auth_service.dart';
 import 'package:tasktrail/services/firrestore.dart';
 
-class TaskView extends StatelessWidget {
+class TaskView extends StatefulWidget {
   final String id;
-  final FirestoreService firestoreService = FirestoreService();
 
   TaskView({Key? key, required this.id}) : super(key: key);
 
   @override
+  State<TaskView> createState() => _TaskViewState();
+}
+
+class _TaskViewState extends State<TaskView> {
+  final FirestoreService firestoreService = FirestoreService();
+  final AuthService authService = AuthService();
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(
-      future: firestoreService.getJobById(id),
+      future: firestoreService.getJobById(widget.id),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
+          return Container(
+            color: const Color.fromARGB(
+                255, 255, 255, 255), // replace with your desired color
+            child: const Center(child: CircularProgressIndicator()),
+          );
         }
         if (snapshot.hasError) {
           return const Text('Error fetching job details');
@@ -109,7 +121,7 @@ class TaskView extends StatelessWidget {
                                         Container(
                                           margin: const EdgeInsets.only(top: 6),
                                           child: Text(
-                                            'Education',
+                                            jobData['category'],
                                             style: GoogleFonts.poppins(
                                               color: const Color(0xFF121212),
                                               fontSize: 15,
@@ -151,7 +163,7 @@ class TaskView extends StatelessWidget {
                                         Container(
                                           margin: const EdgeInsets.only(top: 6),
                                           child: Text(
-                                            '\$100',
+                                            'Rs ' + jobData['price'].toString(),
                                             style: GoogleFonts.poppins(
                                               color: const Color(0xFF121212),
                                               fontSize: 18,
@@ -194,7 +206,7 @@ class TaskView extends StatelessWidget {
                                         Container(
                                           margin: const EdgeInsets.only(top: 6),
                                           child: Text(
-                                            '10',
+                                            jobData['slots'].toString(),
                                             style: GoogleFonts.poppins(
                                               color: const Color(0xFF121212),
                                               fontSize: 18,
@@ -221,7 +233,7 @@ class TaskView extends StatelessWidget {
                         Container(
                           margin: const EdgeInsets.only(top: 10),
                           child: Text(
-                            'In the heart of a bustling metropolis, the neon lights danced upon the wet pavement as the city embraced the night. Amongst the crowd, whispers of ambition mingled with the scent of coffee and distant laughter. Each step taken echoed stories untold, weaving a tapestry of urban dreams in the midnight air.',
+                            jobData['description'],
                             style: GoogleFonts.poppins(
                               fontSize: 14,
                               height: 1.8,
@@ -256,74 +268,99 @@ class TaskView extends StatelessWidget {
                                   Text(
                                     'About the Advertiser',
                                     style: GoogleFonts.poppins(
-                                      color: Color(0xFF928FFF),
+                                      color: const Color(0xFF928FFF),
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 20),
-                              Row(
-                                children: <Widget>[
-                                  CircleAvatar(
-                                    radius: 35,
-                                    backgroundImage:
-                                        AssetImage('assets/images/avatar1.png'),
-                                  ),
-                                  SizedBox(width: 15),
-                                  Expanded(
-                                    child: Column(
-                                      children: <Widget>[
-                                        Row(
+                              const SizedBox(height: 20),
+                              FutureBuilder<DocumentSnapshot>(
+                                future: firestoreService
+                                    .getUserByEmail(jobData['ownerEmail']),
+                                builder: (context, snapshot) {
+                                  if (snapshot.connectionState ==
+                                      ConnectionState.waiting) {
+                                    return const CircularProgressIndicator();
+                                  }
+                                  if (snapshot.hasError) {
+                                    return const Text(
+                                        'Error fetching user details');
+                                  }
+                                  final userData = snapshot.data!.data()
+                                      as Map<String, dynamic>;
+                                  return Row(
+                                    children: <Widget>[
+                                      CircleAvatar(
+                                        radius: 35,
+                                        backgroundImage: AssetImage(
+                                            'assets/images/avatar${userData['imageId']}.png'),
+                                      ),
+                                      const SizedBox(width: 15),
+                                      Expanded(
+                                        child: Column(
                                           children: <Widget>[
-                                            Expanded(
-                                              child: Text(
-                                                'Navishka Malalage',
-                                                overflow: TextOverflow.visible,
-                                                style: GoogleFonts.poppins(
-                                                  color: const Color.fromARGB(
-                                                      255, 27, 27, 27),
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w500,
+                                            Row(
+                                              children: <Widget>[
+                                                Expanded(
+                                                  child: Text(
+                                                    userData['username'],
+                                                    overflow:
+                                                        TextOverflow.visible,
+                                                    style: GoogleFonts.poppins(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 27, 27, 27),
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                  ),
                                                 ),
-                                              ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: 2),
+                                            Row(
+                                              children: <Widget>[
+                                                Expanded(
+                                                  child: Text(
+                                                    jobData['ownerEmail'],
+                                                    overflow:
+                                                        TextOverflow.visible,
+                                                    style: GoogleFonts.poppins(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255,
+                                                              150,
+                                                              150,
+                                                              150),
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
-                                        SizedBox(height: 2),
-                                        Row(
-                                          children: <Widget>[
-                                            Expanded(
-                                              child: Text(
-                                                '23.06.2024',
-                                                overflow: TextOverflow.visible,
-                                                style: GoogleFonts.poppins(
-                                                  color: Color.fromARGB(
-                                                      255, 150, 150, 150),
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.w400,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(width: 10),
-                                  CircleAvatar(
-                                    radius: 22,
-                                    backgroundColor: Color(0xFF928FFF),
-                                    child: Icon(Icons.phone, size: 22),
-                                  ),
-                                  SizedBox(width: 10),
-                                  CircleAvatar(
-                                    radius: 22,
-                                    backgroundColor: Color(0xFF928FFF),
-                                    child: Icon(Icons.mail, size: 22),
-                                  ),
-                                ],
+                                      ),
+                                      const SizedBox(width: 10),
+                                      const CircleAvatar(
+                                        radius: 22,
+                                        backgroundColor: Color(0xFF928FFF),
+                                        child: Icon(Icons.phone, size: 22),
+                                      ),
+                                      const SizedBox(width: 10),
+                                      const CircleAvatar(
+                                        radius: 22,
+                                        backgroundColor: Color(0xFF928FFF),
+                                        child: Icon(Icons.mail, size: 22),
+                                      ),
+                                    ],
+                                  );
+                                },
                               ),
                             ],
                           ),

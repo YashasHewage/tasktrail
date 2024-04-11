@@ -22,6 +22,11 @@ class _AddJobState extends State<AddJob> {
   final contactController = TextEditingController();
   String? category;
 
+  //get user data by email
+  Future<void> getUserData() async {
+    final user = await firestoreService.getUserByEmail(authService.getEmail());
+  }
+
   void addJob() async {
     if (titleController.text.isEmpty ||
         descriptionController.text.isEmpty ||
@@ -52,6 +57,7 @@ class _AddJobState extends State<AddJob> {
       category!,
       contactController.text,
       authService.getEmail(),
+      
     );
 
     // clear fields
