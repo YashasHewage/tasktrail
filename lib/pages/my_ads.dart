@@ -20,7 +20,11 @@ class _MyAdsState extends State<MyAds> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Ads"),
+        title: const Text(
+          "My Ads",
+          style: TextStyle(fontWeight: FontWeight.w500),
+        ),
+        centerTitle: true,
       ),
       backgroundColor: Colors.white,
       body: NestedScrollView(
