@@ -26,13 +26,14 @@ class ViewReq extends StatelessWidget {
         ),
         body: Container(
           color: Colors.white,
-          child: Column(
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 10, right: 20, left: 20),
+          child: ListView.builder(
+            
+            itemCount: 3,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.only(top: 20, right: 20, left: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                    
                   ),
                   child: Row(
                     children: <Widget>[
@@ -78,7 +79,7 @@ class ViewReq extends StatelessWidget {
                           ],
                         ),
                       ),
-                      const SizedBox(width: 20),
+                      const SizedBox(width: 10),
                       const CircleAvatar(
                         radius: 18,
                         backgroundColor: Color.fromARGB(255, 255, 56, 56),
@@ -93,10 +94,10 @@ class ViewReq extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-            ],
+              );
+            },
           ),
-        )
-        );
+        ),
+    );
   }
 }
