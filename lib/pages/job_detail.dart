@@ -24,8 +24,7 @@ class _TaskViewState extends State<TaskView> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
-            color: const Color.fromARGB(
-                255, 255, 255, 255), // replace with your desired color
+            color: const Color.fromARGB(255, 255, 255, 255),
             child: const Center(child: CircularProgressIndicator()),
           );
         }

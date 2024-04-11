@@ -1,7 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:tasktrail/components/edit_profile_model.dart';
+import 'package:tasktrail/services/auth/auth_service.dart';
+import 'package:tasktrail/services/firrestore.dart';
 
 class ProfileView extends StatefulWidget {
   @override
@@ -10,6 +11,9 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   bool _switchValue = false;
+
+  final AuthService authService = AuthService();
+  final FirestoreService firestoreService = FirestoreService();
 
   @override
   Widget build(BuildContext context) {
@@ -40,29 +44,46 @@ class _ProfileViewState extends State<ProfileView> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Row(
-                          children: [
-                            const Image(
-                              image: AssetImage("assets/images/avatar1.png"),
-                              height: 90,
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(left: 20),
-                              child: const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "User_1000",
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                        FutureBuilder<DocumentSnapshot>(
+                          future: firestoreService
+                              .getUserByEmail(authService.getEmail()),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const CircularProgressIndicator();
+                            }
+                            if (snapshot.hasError) {
+                              return const Text('Error fetching user details');
+                            }
+                            final userData =
+                                snapshot.data!.data() as Map<String, dynamic>;
+                            return Row(
+                              children: [
+                                Image(
+                                  image: AssetImage(
+                                      "assets/images/avatar${userData['imageId']}.png"),
+                                  height: 90,
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(left: 20),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        userData['username'],
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(authService.getEmail())
+                                    ],
                                   ),
-                                  Text("userdata100@gmail.com")
-                                ],
-                              ),
-                            ),
-                          ],
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ],
                     ),
