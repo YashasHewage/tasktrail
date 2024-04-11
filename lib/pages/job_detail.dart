@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:tasktrail/pages/view_requests.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
 import 'package:tasktrail/services/firrestore.dart';
@@ -25,8 +26,7 @@ class _TaskViewState extends State<TaskView> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
-            color: const Color.fromARGB(
-                255, 255, 255, 255), 
+            color: const Color.fromARGB(255, 255, 255, 255),
             child: const Center(child: CircularProgressIndicator()),
           );
         }
@@ -64,6 +64,7 @@ class _TaskViewState extends State<TaskView> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(height: 10),
                         Text(
                           jobData['title'],
                           style: GoogleFonts.poppins(
@@ -71,7 +72,19 @@ class _TaskViewState extends State<TaskView> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        Container(
+                          margin: const EdgeInsets.only(top: 8),
+                          child: Text(
+                            DateFormat('yyyy-MM-dd        kk:mm')
+                                .format(jobData['createdAt'].toDate()),
+                            style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: const Color.fromARGB(255, 163, 163, 163),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 30),
                         Container(
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -225,22 +238,14 @@ class _TaskViewState extends State<TaskView> {
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.only(top: 30),
-                          child: Text(
-                            'Date & Time',
-                            style: GoogleFonts.poppins(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Color.fromRGBO(108, 105, 189, 1)),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 5),
-                          child: Text(
-                            jobData['createdAt'].toString(),
-                            style: GoogleFonts.poppins(
-                                fontSize: 14, fontWeight: FontWeight.w400),
-                          ),
+                          // margin: const EdgeInsets.only(top: 10),
+                          // child: Text(
+                          //   'Date & Time',
+                          //   style: GoogleFonts.poppins(
+                          //       fontSize: 20,
+                          //       fontWeight: FontWeight.w600,
+                          //       color: Color.fromRGBO(108, 105, 189, 1)),
+                          // ),
                         ),
                         Container(
                           margin: const EdgeInsets.only(top: 30),
@@ -248,7 +253,7 @@ class _TaskViewState extends State<TaskView> {
                             'Description',
                             style: GoogleFonts.poppins(
                                 fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                                 color: Color.fromRGBO(108, 105, 189, 1)),
                           ),
                         ),
