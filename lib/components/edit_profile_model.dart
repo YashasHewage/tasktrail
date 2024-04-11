@@ -73,8 +73,11 @@ class _EditProfileState extends State<EditProfile> {
       backgroundColor: isDarkMode ? Colors.grey[900] : Colors.white,
       appBar: AppBar(
         title: Text("Edit Profile",
-            style: TextStyle(color: isDarkMode ? Colors.white : Colors.black)),
+            style: TextStyle(
+                color: isDarkMode ? Colors.white : Colors.black,
+                fontWeight: FontWeight.w500)),
         backgroundColor: isDarkMode ? Colors.grey[900] : Colors.white,
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
