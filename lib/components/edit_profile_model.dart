@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
 
 class EditProfile extends StatefulWidget {
@@ -50,11 +48,10 @@ class _EditProfileState extends State<EditProfile> {
   Widget _buildAvatar(String imagePath) {
     return GestureDetector(
       onTap: () {
-        // Update the selected avatar path when an avatar is tapped
         setState(() {
           selectedAvatar = imagePath;
         });
-        // Close the bottom sheet after selecting an avatar
+
         Navigator.of(context).pop();
       },
       child: CircleAvatar(
@@ -78,24 +75,22 @@ class _EditProfileState extends State<EditProfile> {
             const SizedBox(height: 10),
             CircleAvatar(
               radius: 70,
-              backgroundImage:
-                  AssetImage(selectedAvatar), // Use selected avatar here
+              backgroundImage: AssetImage(selectedAvatar),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: _showAvatarEditor,
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(15),
-                backgroundColor: const Color.fromRGBO(
-                    64, 106, 255, 1), // Color of the "Save" button
+                backgroundColor: const Color.fromRGBO(64, 106, 255, 1),
               ),
-              child: Text(
+              child: const Text(
                 'Edit Avatar',
-                style: TextStyle(color: Colors.white), // Text color
+                style: TextStyle(color: Colors.white),
               ),
             ),
             const SizedBox(height: 10),
-            TextField(
+            const TextField(
               decoration: InputDecoration(
                 labelText: 'Username',
               ),
@@ -103,8 +98,8 @@ class _EditProfileState extends State<EditProfile> {
             const SizedBox(height: 10),
             TextFormField(
               enabled: false,
-              controller: _emailController, // Disable editing
-              decoration: InputDecoration(
+              controller: _emailController,
+              decoration: const InputDecoration(
                 labelText: "Email Address",
               ),
             ),
