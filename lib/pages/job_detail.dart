@@ -252,13 +252,13 @@ class _TaskViewState extends State<TaskView> {
                           child: Text(
                             'Description',
                             style: GoogleFonts.poppins(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
                                 color: Color.fromRGBO(108, 105, 189, 1)),
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.only(top: 10),
+                          margin: const EdgeInsets.only(top: 8),
                           child: Text(
                             jobData['description'],
                             style: GoogleFonts.poppins(
