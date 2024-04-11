@@ -58,7 +58,8 @@ class _TaskViewState extends State<TaskView> {
                 color: Theme.of(context).colorScheme.tertiary,
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.only(
+                        left: 16.0, right: 16.0, bottom: 100),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -159,7 +160,7 @@ class _TaskViewState extends State<TaskView> {
                                         Container(
                                           margin: const EdgeInsets.only(top: 6),
                                           child: Text(
-                                            'Position',
+                                            'Payment',
                                             style: GoogleFonts.poppins(
                                               color: const Color(0xFF777B8A),
                                               fontSize: 13,
@@ -202,7 +203,7 @@ class _TaskViewState extends State<TaskView> {
                                         Container(
                                           margin: const EdgeInsets.only(top: 6),
                                           child: Text(
-                                            'Position',
+                                            'Vacancies',
                                             style: GoogleFonts.poppins(
                                               color: const Color(0xFF777B8A),
                                               fontSize: 13,
@@ -231,9 +232,29 @@ class _TaskViewState extends State<TaskView> {
                         Container(
                           margin: const EdgeInsets.only(top: 30),
                           child: Text(
-                            'Requirements',
+                            'Date & Time',
                             style: GoogleFonts.poppins(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromRGBO(108, 105, 189, 1)),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 5),
+                          child: Text(
+                            jobData['createdAt'].toString(),
+                            style: GoogleFonts.poppins(
+                                fontSize: 14, fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 30),
+                          child: Text(
+                            'Description',
+                            style: GoogleFonts.poppins(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromRGBO(108, 105, 189, 1)),
                           ),
                         ),
                         Container(
@@ -254,7 +275,7 @@ class _TaskViewState extends State<TaskView> {
             },
           ),
           floatingActionButton: Container(
-            margin: const EdgeInsets.only(bottom: 150),
+            margin: const EdgeInsets.only(bottom: 20),
             width: 320,
             child: FloatingActionButton(
               onPressed: () {
