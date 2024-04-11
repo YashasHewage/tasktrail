@@ -1,8 +1,9 @@
-// ignore_for_file: use_build_context_synchronously
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:tasktrail/components/my_textfeild.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
+import 'package:tasktrail/services/firrestore.dart';
 
 class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
@@ -17,6 +18,8 @@ class _RegiterState extends State<RegisterPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confimPasswordController =
       TextEditingController();
+
+  final FirestoreService firestoreService = FirestoreService();
 
   bool isLoading = false;
 
@@ -36,6 +39,12 @@ class _RegiterState extends State<RegisterPage> {
           emailController.text,
           passwordController.text,
         );
+        var rng = Random();
+        var randomNumber = rng.nextInt(10000000);
+        var imageRandom = rng.nextInt(6) + 1;
+
+        await firestoreService.addUser(
+            emailController.text, "User-$randomNumber", imageRandom);
       } catch (e) {
         showDialog(
           context: context,

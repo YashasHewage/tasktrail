@@ -12,7 +12,7 @@ class Loginpage extends StatefulWidget {
   State<Loginpage> createState() => _LoginpageState();
 }
 
-final FirestoreService firestoreService = FirestoreService();
+
 
 class _LoginpageState extends State<Loginpage> {
   final TextEditingController emailController = TextEditingController();
@@ -36,7 +36,7 @@ class _LoginpageState extends State<Loginpage> {
       await _authService.signInWithEmailAndPassword(
           emailController.text, passwordController.text);
 
-      await firestoreService.addUser(emailController.text, "User213123");
+      
 
       showDialog(
         context: context,
