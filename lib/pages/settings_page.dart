@@ -70,14 +70,14 @@ class _ProfileViewState extends State<ProfileView> {
                         IconButton(
                           icon: const Icon(Icons.edit),
                           onPressed: () {
-                            Navigator.pop(context);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditProfile(),
-                              ),
-                            );
-                          },
+                              Navigator.pop(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => EditProfile(),
+                                ),
+                              );
+                            },          
                           iconSize: 25,
                           color: const Color.fromARGB(255, 100, 100, 100),
                         ),
