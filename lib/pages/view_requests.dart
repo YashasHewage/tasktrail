@@ -14,7 +14,7 @@ class ViewReq extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 60.0),
               child: Text(
-                'Advertisement View',
+                'View Requests',
                 style: GoogleFonts.poppins(
                   color: const Color.fromARGB(255, 19, 19, 19),
                   fontSize: 14,
