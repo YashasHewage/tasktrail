@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:tasktrail/pages/home_page.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
@@ -25,23 +23,9 @@ class _EditProfileState extends State<EditProfile> {
   final AuthService authService = AuthService();
   final FirestoreService firestoreService = FirestoreService();
 
-  @override
   void initState() {
     super.initState();
-    _loadUserData();
-  }
-
-  void _loadUserData() async {
-    final email = authService.getEmail();
-    final userDoc = await firestoreService.getUserByEmail(email);
-    final userData = userDoc.data();
-
-    if (userData != null) {
-      _usernameController.text =
-          (userData as Map<String, dynamic>)['username'] ?? '';
-      selectedAvatar =
-          'assets/images/avatar${(userData as Map<Int, dynamic>)['imageId']}.png';
-    }
+    _emailController.text = authService.getEmail(); // Set default email value
   }
 
   void _showAvatarEditor() {
