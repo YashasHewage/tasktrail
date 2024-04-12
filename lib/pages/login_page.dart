@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tasktrail/components/my_button.dart';
-import 'package:tasktrail/components/my_textfeild.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
-import 'package:tasktrail/services/firrestore.dart';
 
 class Loginpage extends StatefulWidget {
   final void Function()? onTap;
@@ -11,6 +9,8 @@ class Loginpage extends StatefulWidget {
   @override
   State<Loginpage> createState() => _LoginpageState();
 }
+
+bool _obscureText = true;
 
 class _LoginpageState extends State<Loginpage> {
   final TextEditingController emailController = TextEditingController();
@@ -88,75 +88,178 @@ class _LoginpageState extends State<Loginpage> {
                                 //     fontWeight: FontWeight.w700,
                                 //   ),
                                 // ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                MyTextFeild(
-                                  controller: emailController,
-                                  hintText: 'Email',
-                                  obscureText: false,
-                                ),
-                                const SizedBox(height: 30),
-                                MyTextFeild(
-                                  controller: passwordController,
-                                  hintText: 'Password',
-                                  obscureText: true,
-                                ),
-                                const SizedBox(height: 40),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(right: 9, left: 9),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      const Text(
-                                        'Sign in',
+                               SizedBox( height: 30,),
+                                Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 5),
+                                    child: Container(
+                                      height: 60,
+                                      child: TextFormField(
+                                        controller: emailController,
+                                        obscureText: false,
                                         style: TextStyle(
-                                          color:
-                                              Color.fromRGBO(127, 110, 157, 1),
-                                          fontSize: 27,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                      CircleAvatar(
-                                        radius: 30,
-                                        backgroundColor:
-                                            Color.fromRGBO(160, 147, 183, 1),
-                                        child: IconButton(
-                                          color: Colors.white,
-                                          onPressed: login,
-                                          icon: const Icon(
-                                            Icons.arrow_forward,
+                                           color: Color.fromRGBO(
+                                                127, 110, 157, 1),
+                                        ), 
+                                        decoration: InputDecoration(
+                                          fillColor: Color.fromARGB(0, 245, 245, 245),
+                                          filled: true,
+                                          labelText: 'Email',
+                                          labelStyle: GoogleFonts.poppins(
+                                            color: Color.fromRGBO(
+                                                127, 110, 157, 1),
+                                          ),
+                                          hintText: 'Enter an email address',
+                                          hintStyle: GoogleFonts.poppins(),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                            borderSide: BorderSide(
+                                                color: Color.fromARGB(255, 0, 0, 0)),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                            borderSide: BorderSide(
+                                                color: Color.fromARGB(255, 0, 0, 0)),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                            borderSide: BorderSide(
+                                                color: Color.fromARGB(255, 0, 0, 0)),
                                           ),
                                         ),
                                       ),
-                                    ],
+                                    ),
                                   ),
                                 ),
+                               
+                                // MyTextFeild(
+                                //   controller: emailController,
+                                //   hintText: 'Email',
+                                //   obscureText: false,
+                                // ),
+                                const SizedBox(height: 30),
+                                Container(
+                                 
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(),
+                                    child: Container(
+                                      height: 60,
+                                      child: TextFormField(
+                                        controller: passwordController,
+                                        obscureText: _obscureText,
+                                        style: TextStyle(color: Color.fromRGBO(127, 110, 157, 1)),
+                                        decoration: InputDecoration(
+                                          labelText: 'Password',
+                                          labelStyle: GoogleFonts.poppins(color: Color.fromRGBO(127, 110, 157, 1)), 
+                                          hintText: 'Enter a password',
+                                          hintStyle: GoogleFonts.poppins(),
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(11),
+                                          ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              _obscureText ? Icons.visibility_off : Icons.visibility,
+                                              color: Color.fromRGBO(127, 110, 157, 1),
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                _obscureText = !_obscureText;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                // MyTextFeild(
+                                //   controller: passwordController,
+                                //   hintText: 'Password',
+                                //   obscureText: true,
+                                // ),
+                                const SizedBox(height: 40),
+                                // Padding(
+                                //   padding:
+                                //       const EdgeInsets.only(right: 9, left: 9),
+                                //   child: Row(
+                                //     mainAxisAlignment:
+                                //         MainAxisAlignment.spaceBetween,
+                                //     children: [
+                                //       Text(
+                                //         'Sign in',
+                                //         style: GoogleFonts.poppins(
+                                //           color: Color.fromRGBO(127, 110, 157, 1),
+                                //           fontSize: 28,
+                                //           fontWeight: FontWeight.w500,
+                                //         ),
+                                //       ),
+                                //       CircleAvatar(
+                                //         radius: 28,
+                                //         backgroundColor:
+                                //             Color.fromRGBO(160, 147, 183, 1),
+                                //         child: IconButton(
+                                //           color: Colors.white,
+                                //           onPressed: login,
+                                //           icon: const Icon(
+                                //             Icons.arrow_forward,
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
+
+                              TextButton(
+                                onPressed: login,
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Sign In',
+                                      style: GoogleFonts.poppins(
+                                        color: Color.fromRGBO(127, 110, 157, 1),
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    CircleAvatar(
+                                      radius: 28,
+                                      backgroundColor: Color.fromRGBO(160, 147, 183, 1),
+                                      child: Icon(
+                                        Icons.arrow_forward,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                                 const SizedBox(height: 40),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Text(
-                                      'Already have an Account?',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Color.fromRGBO(160, 147, 183, 1),
-                                        fontWeight: FontWeight.bold,
+                                     Text(
+                                        'Already have an account?',
+                                        style: GoogleFonts.poppins(
+                                          color: Color.fromRGBO(127, 110, 157, 1),
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(width: 4),
+                                    const SizedBox(width: 5),
                                     GestureDetector(
                                       onTap: widget.onTap,
                                       child: Text(
-                                        'Register',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .inversePrimary,
-                                          fontWeight: FontWeight.bold,
+                                        'register',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 16,
+                                          color: Color(0xFF8F86FA),
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                     ),
