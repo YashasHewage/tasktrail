@@ -1,9 +1,9 @@
-// ignore_for_file: use_build_context_synchronously
+import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:tasktrail/components/my_button.dart';
-import 'package:tasktrail/components/my_textfeild.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
+import 'package:tasktrail/services/firrestore.dart';
 
 class RegisterPage extends StatefulWidget {
   final void Function()? onTap;
@@ -12,17 +12,20 @@ class RegisterPage extends StatefulWidget {
   @override
   State<RegisterPage> createState() => _RegiterState();
 }
+bool _obscureText = true;
+
 
 class _RegiterState extends State<RegisterPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confimPasswordController = TextEditingController();
+  final TextEditingController confimPasswordController =
+      TextEditingController();
+
+  final FirestoreService firestoreService = FirestoreService();
 
   bool isLoading = false;
 
-
   void register() async {
-
     setState(() {
       isLoading = true;
     });
@@ -38,6 +41,12 @@ class _RegiterState extends State<RegisterPage> {
           emailController.text,
           passwordController.text,
         );
+        var rng = Random();
+        var randomNumber = rng.nextInt(10000000);
+        var imageRandom = rng.nextInt(6) + 1;
+
+        await firestoreService.addUser(
+            emailController.text, "User-$randomNumber", imageRandom);
       } catch (e) {
         showDialog(
           context: context,
@@ -61,87 +70,229 @@ class _RegiterState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Center(
-        child: isLoading
-        ? const CircularProgressIndicator()
-        : SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              //logos
-              //hey
-              Icon(
-                Icons.travel_explore,
-                size: 100,
-                color: Theme.of(context).colorScheme.inversePrimary,
-              ),
-              const SizedBox(height: 25),
-
-              //message, app slogon
-              Text(
-                'Create Acount',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Theme.of(context).colorScheme.inversePrimary,
-                ),
-              ),
-              const SizedBox(height: 25),
-
-              //email
-              MyTextFeild(
-                controller: emailController,
-                hintText: 'Email',
-                obscureText: false,
-              ),
-
-              const SizedBox(height: 25),
-
-              //password
-              MyTextFeild(
-                controller: passwordController,
-                hintText: 'password',
-                obscureText: true,
-              ),
-              const SizedBox(height: 25),
-
-              MyTextFeild(
-                controller: confimPasswordController,
-                hintText: 'confirm password',
-                obscureText: true,
-              ),
-              const SizedBox(height: 25),
-
-              //sing in button
-              MyButton(text: 'Sign Up', onTap: register),
-              const SizedBox(height: 25),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'already have an account?',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(width: 4),
-                  GestureDetector(
-                    onTap: widget.onTap,
-                    child: Text(
-                      'Login now',
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                        fontWeight: FontWeight.bold,
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/loginScreen.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Center(
+          child: isLoading
+              ? const CircularProgressIndicator()
+              : SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 300),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(left: 35, right: 35),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 25),
+                               Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 5),
+                                    child: Container(
+                                      height: 60,
+                                      child: TextFormField(
+                                        controller: emailController,
+                                        obscureText: false,
+                                        style: TextStyle(
+                                          color:
+                                              Color.fromRGBO(127, 110, 157, 1),
+                                        ),
+                                        decoration: InputDecoration(
+                                          fillColor:
+                                              Color.fromARGB(0, 245, 245, 245),
+                                          filled: true,
+                                          labelText: 'Email',
+                                          labelStyle: GoogleFonts.poppins(
+                                            color: Color.fromRGBO(
+                                                127, 110, 157, 1),
+                                          ),
+                                          hintText: 'Enter an email address',
+                                          hintStyle: GoogleFonts.poppins(),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                            borderSide: BorderSide(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0)),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                            borderSide: BorderSide(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0)),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                            borderSide: BorderSide(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0)),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 30),
+                                Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(),
+                                    child: Container(
+                                      height: 60,
+                                      child: TextFormField(
+                                        controller: passwordController,
+                                        obscureText: _obscureText,
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                127, 110, 157, 1)),
+                                        decoration: InputDecoration(
+                                          labelText: 'Password',
+                                          labelStyle: GoogleFonts.poppins(
+                                              color: Color.fromRGBO(
+                                                  127, 110, 157, 1)),
+                                          hintText: 'Enter a password',
+                                          hintStyle: GoogleFonts.poppins(),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                          ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              _obscureText
+                                                  ? Icons.visibility_off
+                                                  : Icons.visibility,
+                                              color: Color.fromRGBO(
+                                                  127, 110, 157, 1),
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                _obscureText = !_obscureText;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 30),
+                                Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(),
+                                    child: Container(
+                                      height: 60,
+                                      child: TextFormField(
+                                        controller:confimPasswordController,
+                                        obscureText: _obscureText,
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                127, 110, 157, 1)),
+                                        decoration: InputDecoration(
+                                          labelText: 'Password',
+                                          labelStyle: GoogleFonts.poppins(
+                                              color: Color.fromRGBO(
+                                                  127, 110, 157, 1)),
+                                          hintText: 'Enter a password',
+                                          hintStyle: GoogleFonts.poppins(),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                          ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              _obscureText
+                                                  ? Icons.visibility_off
+                                                  : Icons.visibility,
+                                              color: Color.fromRGBO(
+                                                  127, 110, 157, 1),
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                _obscureText = !_obscureText;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height:30),
+                                Padding(
+                                  padding: const EdgeInsets.all(0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        'Register',
+                                        style: GoogleFonts.poppins(
+                                          color: Color.fromRGBO(127, 110, 157, 1),
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      CircleAvatar(
+                                        radius: 22,
+                                        backgroundColor: const Color.fromRGBO(
+                                            160, 147, 183, 1),
+                                        child: IconButton(
+                                          color: Colors.white,
+                                          onPressed: register,
+                                          icon: const Icon(
+                                            Icons.arrow_forward,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 30),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Already have an account?',
+                                      style: TextStyle(
+                                      fontSize: 14,
+                                      color: Color.fromRGBO(160, 147, 183, 1),
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: GoogleFonts.poppins().fontFamily,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    GestureDetector(
+                                      onTap: widget.onTap,
+                                      child: Text(
+                                        'Login',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                           color: Color(0xFF8F86FA),
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: GoogleFonts.poppins().fontFamily,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
         ),
       ),
     );

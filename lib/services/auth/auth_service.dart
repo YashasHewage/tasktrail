@@ -7,7 +7,7 @@ class AuthService {
     return _firebaseAuth.currentUser;
   }
 
-  //signIN 
+  //signIN
 
   Future<UserCredential> signInWithEmailAndPassword(
       String emal, password) async {
@@ -19,6 +19,7 @@ class AuthService {
       throw Exception(e.code);
     }
   }
+
   //signUp
   Future<UserCredential> signUpWithEmailAndPassword(
       String emal, password) async {
@@ -30,9 +31,16 @@ class AuthService {
       throw Exception(e.code);
     }
   }
+
   Future<void> signOut() async {
     return await _firebaseAuth.signOut();
   }
-      
-  
+
+  String getEmail() {
+    User? currentUser = getCurrentUser();
+    if (currentUser != null) {
+      return currentUser.email ?? '';
+    }
+    return '';
+  }
 }

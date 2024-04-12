@@ -1,33 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:tasktrail/components/my_drawer.dart';
 import 'package:tasktrail/components/my_job_tile.dart';
-import 'package:tasktrail/components/my_sliver_app_bar.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
 import 'package:tasktrail/services/firrestore.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class MyAds extends StatefulWidget {
+  const MyAds({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  _MyAdsState createState() => _MyAdsState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 2, vsync: this);
-  }
-
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
+class _MyAdsState extends State<MyAds> with SingleTickerProviderStateMixin {
   final AuthService authService = AuthService();
 
   final FirestoreService firestoreService = FirestoreService();
@@ -35,24 +19,18 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "My Ads",
+          style: TextStyle(fontWeight: FontWeight.w500),
+        ),
+        centerTitle: true,
+      ),
       backgroundColor: Colors.white,
-      drawer: const Mydrawer(),
       body: NestedScrollView(
-        headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          MySliverAppBar(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Image.asset(
-                  'assets/images/landingpage2.png',
-                  height: 260,
-                ),
-              ],
-            ),
-          ),
-        ],
+        headerSliverBuilder: (context, innerBoxIsScrolled) => [],
         body: StreamBuilder<QuerySnapshot>(
-          stream: firestoreService.getJobs(),
+          stream: firestoreService.getMyAds(authService.getEmail()),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -70,7 +48,7 @@ class _HomePageState extends State<HomePage>
                   address: doc['address'],
                   jobType: doc['category'].toString(),
                   documentId: doc.id,
-                  page: "home",
+                  page: "my_ads",
                 );
               },
             );

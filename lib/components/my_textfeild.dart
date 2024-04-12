@@ -15,19 +15,31 @@ class MyTextFeild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25.0),
+      padding: const EdgeInsets.symmetric(horizontal: 0.0),
       child: TextField(
         controller: controller,
         obscureText: obscureText,
+        style:
+            const TextStyle(color: Colors.black), // Change the text color here
         decoration: InputDecoration(
+          fillColor: Color.fromARGB(226, 245, 245, 245),
+          filled: true,
+          hintText: hintText,
+          hintStyle: const TextStyle(
+              color: Color.fromRGBO(
+                  190, 190, 190, 1)), // Change the hint text color here
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none, // Remove the border side
+          ),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Theme.of(context).colorScheme.tertiary),
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none, // Remove the border side
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide.none, // Remove the border side
           ),
-          hintText: hintText,
-          hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
         ),
       ),
     );

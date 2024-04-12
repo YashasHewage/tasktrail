@@ -1,12 +1,6 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
-
-import 'package:tasktrail/components/my_button.dart';
-import 'package:tasktrail/components/my_textfeild.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Loginpage extends StatefulWidget {
   final void Function()? onTap;
@@ -15,6 +9,8 @@ class Loginpage extends StatefulWidget {
   @override
   State<Loginpage> createState() => _LoginpageState();
 }
+
+bool _obscureText = true;
 
 class _LoginpageState extends State<Loginpage> {
   final TextEditingController emailController = TextEditingController();
@@ -38,13 +34,12 @@ class _LoginpageState extends State<Loginpage> {
       await _authService.signInWithEmailAndPassword(
           emailController.text, passwordController.text);
 
-      // Save the email and password to Firestore
-      CollectionReference users =
-          FirebaseFirestore.instance.collection('users');
-      users.add({
-        'email': emailController.text,
-        'password': passwordController.text,
-      });
+      showDialog(
+        context: context,
+        builder: (context) => const AlertDialog(
+          title: Text('Login Successful'),
+        ),
+      );
     } catch (e) {
       showDialog(
         context: context,
@@ -61,85 +56,244 @@ class _LoginpageState extends State<Loginpage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+    return Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/loginScreen.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
         body: Center(
           child: isLoading
               ? const CircularProgressIndicator()
               : SingleChildScrollView(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      //logo
-                      Icon(
-                        Icons.travel_explore,
-                        size: 100,
-                        color: Theme.of(context).colorScheme.inversePrimary,
-                      ),
-                      const SizedBox(height: 25),
-
-                      //message, app slogon
-                      Text(
-                        'Task Trail',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Theme.of(context).colorScheme.inversePrimary,
-                        ),
-                      ),
-                      const SizedBox(height: 25),
-
-                      //email
-                      MyTextFeild(
-                        controller: emailController,
-                        hintText: 'Email',
-                        obscureText: false,
-                      ),
-
-                      const SizedBox(height: 25),
-
-                      //password
-                      MyTextFeild(
-                        controller: passwordController,
-                        hintText: 'password',
-                        obscureText: true,
-                      ),
-                      const SizedBox(height: 25),
-
-                      //sing in button
-                      MyButton(text: 'Sign In', onTap: login),
-                      const SizedBox(height: 25),
-
-                      Row(
+                      const SizedBox(height: 300),
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Not a member ?',
-                            style: TextStyle(
-                              color:
-                                  Theme.of(context).colorScheme.inversePrimary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(width: 4),
-                          GestureDetector(
-                            onTap: widget.onTap,
-                            child: Text(
-                              'register now',
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .inversePrimary,
-                                fontWeight: FontWeight.bold,
-                              ),
+                          Container(
+                            margin: const EdgeInsets.only(left: 35, right: 35),
+                            child: Column(
+                              children: [
+                                // const Text(
+                                //   '',
+                                //   style: TextStyle(
+                                //     color: Color.fromRGBO(127, 110, 157, 1),
+                                //     fontSize: 27,
+                                //     fontWeight: FontWeight.w700,
+                                //   ),
+                                // ),
+                                SizedBox(
+                                  height: 30,
+                                ),
+                                Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 5),
+                                    child: Container(
+                                      height: 60,
+                                      child: TextFormField(
+                                        controller: emailController,
+                                        obscureText: false,
+                                        style: TextStyle(
+                                          color:
+                                              Color.fromRGBO(127, 110, 157, 1),
+                                        ),
+                                        decoration: InputDecoration(
+                                          fillColor:
+                                              Color.fromARGB(0, 245, 245, 245),
+                                          filled: true,
+                                          labelText: 'Email',
+                                          labelStyle: GoogleFonts.poppins(
+                                            color: Color.fromRGBO(
+                                                127, 110, 157, 1),
+                                          ),
+                                          hintText: 'Enter an email address',
+                                          hintStyle: GoogleFonts.poppins(),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                            borderSide: BorderSide(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0)),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                            borderSide: BorderSide(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0)),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                            borderSide: BorderSide(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0)),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                                // MyTextFeild(
+                                //   controller: emailController,
+                                //   hintText: 'Email',
+                                //   obscureText: false,
+                                // ),
+                                const SizedBox(height: 30),
+                                Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(),
+                                    child: Container(
+                                      height: 60,
+                                      child: TextFormField(
+                                        controller: passwordController,
+                                        obscureText: _obscureText,
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                127, 110, 157, 1)),
+                                        decoration: InputDecoration(
+                                          labelText: 'Password',
+                                          labelStyle: GoogleFonts.poppins(
+                                              color: Color.fromRGBO(
+                                                  127, 110, 157, 1)),
+                                          hintText: 'Enter a password',
+                                          hintStyle: GoogleFonts.poppins(),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                          ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              _obscureText
+                                                  ? Icons.visibility_off
+                                                  : Icons.visibility,
+                                              color: Color.fromRGBO(
+                                                  127, 110, 157, 1),
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                _obscureText = !_obscureText;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                // MyTextFeild(
+                                //   controller: passwordController,
+                                //   hintText: 'Password',
+                                //   obscureText: true,
+                                // ),
+                                const SizedBox(height: 40),
+                                // Padding(
+                                //   padding:
+                                //       const EdgeInsets.only(right: 9, left: 9),
+                                //   child: Row(
+                                //     mainAxisAlignment:
+                                //         MainAxisAlignment.spaceBetween,
+                                //     children: [
+                                //       Text(
+                                //         'Sign in',
+                                //         style: GoogleFonts.poppins(
+                                //           color: Color.fromRGBO(127, 110, 157, 1),
+                                //           fontSize: 28,
+                                //           fontWeight: FontWeight.w500,
+                                //         ),
+                                //       ),
+                                //       CircleAvatar(
+                                //         radius: 28,
+                                //         backgroundColor:
+                                //             Color.fromRGBO(160, 147, 183, 1),
+                                //         child: IconButton(
+                                //           color: Colors.white,
+                                //           onPressed: login,
+                                //           icon: const Icon(
+                                //             Icons.arrow_forward,
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
+
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 40, right: 40),
+                                  child: TextButton(
+                                  onPressed: login,
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                    children: [
+                                    Text(
+                                      'Sign In',
+                                      style: GoogleFonts.poppins(
+                                      color:
+                                        Color.fromRGBO(127, 110, 157, 1),
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    CircleAvatar(
+                                      radius: 23,
+                                      backgroundColor:
+                                        Color.fromRGBO(160, 147, 183, 1),
+                                      child: Icon(
+                                      Icons.arrow_forward,
+                                      color: Colors.white,
+                                      ),
+                                    ),
+                                    ],
+                                  ),
+                                  ),
+                                ),
+                                const SizedBox(height: 40),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Already have an account?',
+                                      style: GoogleFonts.poppins(
+                                        color: Color.fromRGBO(127, 110, 157, 1),
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 5),
+                                    GestureDetector(
+                                      onTap: widget.onTap,
+                                      child: Text(
+                                        'register',
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 16,
+                                          color: Color(0xFF8F86FA),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ],
-                      )
-
-                      // not a member? register now
+                      ),
                     ],
                   ),
                 ),
-        ));
+        ),
+      ),
+    );
   }
 }
