@@ -116,10 +116,10 @@ class _RegiterState extends State<RegisterPage> {
                                       const EdgeInsets.only(right: 9, left: 9),
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceEvenly,
                                     children: [
                                       const Text(
-                                        'Sign in',
+                                        'Register',
                                         style: TextStyle(
                                           color:
                                               Color.fromRGBO(127, 110, 157, 1),
@@ -147,7 +147,7 @@ class _RegiterState extends State<RegisterPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Text(
-                                      'already have an account?',
+                                      'Already have an account?',
                                       style: TextStyle(
                                         fontSize: 14,
                                         color: Color.fromRGBO(160, 147, 183, 1),
@@ -158,11 +158,10 @@ class _RegiterState extends State<RegisterPage> {
                                     GestureDetector(
                                       onTap: widget.onTap,
                                       child: const Text(
-                                        'Login now',
+                                        'Login',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color:
-                                              Color.fromRGBO(160, 147, 183, 1),
+                                          color: Color.fromRGBO(77, 77, 77, 1),
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
