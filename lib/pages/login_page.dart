@@ -33,13 +33,6 @@ class _LoginpageState extends State<Loginpage> {
     try {
       await _authService.signInWithEmailAndPassword(
           emailController.text, passwordController.text);
-
-      showDialog(
-        context: context,
-        builder: (context) => const AlertDialog(
-          title: Text('Login Successful'),
-        ),
-      );
     } catch (e) {
       showDialog(
         context: context,
@@ -226,36 +219,37 @@ class _LoginpageState extends State<Loginpage> {
                                 // ),
 
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 40, right: 40),
+                                  padding: const EdgeInsets.only(
+                                      left: 40, right: 40),
                                   child: TextButton(
-                                  onPressed: login,
-                                  style: TextButton.styleFrom(
-                                    padding: EdgeInsets.zero,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                    children: [
-                                    Text(
-                                      'Sign In',
-                                      style: GoogleFonts.poppins(
-                                      color:
-                                        Color.fromRGBO(127, 110, 157, 1),
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w500,
-                                      ),
+                                    onPressed: login,
+                                    style: TextButton.styleFrom(
+                                      padding: EdgeInsets.zero,
                                     ),
-                                    CircleAvatar(
-                                      radius: 23,
-                                      backgroundColor:
-                                        Color.fromRGBO(160, 147, 183, 1),
-                                      child: Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors.white,
-                                      ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          'Sign In',
+                                          style: GoogleFonts.poppins(
+                                            color: Color.fromRGBO(
+                                                127, 110, 157, 1),
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                        CircleAvatar(
+                                          radius: 23,
+                                          backgroundColor:
+                                              Color.fromRGBO(160, 147, 183, 1),
+                                          child: Icon(
+                                            Icons.arrow_forward,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    ],
-                                  ),
                                   ),
                                 ),
                                 const SizedBox(height: 40),
