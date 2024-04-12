@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:tasktrail/components/my_textfeild.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
 import 'package:tasktrail/services/firrestore.dart';
 
@@ -12,6 +12,8 @@ class RegisterPage extends StatefulWidget {
   @override
   State<RegisterPage> createState() => _RegiterState();
 }
+bool _obscureText = true;
+
 
 class _RegiterState extends State<RegisterPage> {
   final TextEditingController emailController = TextEditingController();
@@ -93,42 +95,155 @@ class _RegiterState extends State<RegisterPage> {
                             child: Column(
                               children: [
                                 const SizedBox(height: 25),
-                                MyTextFeild(
-                                  controller: emailController,
-                                  hintText: 'Email',
-                                  obscureText: false,
-                                ),
-                                const SizedBox(height: 30),
-                                MyTextFeild(
-                                  controller: passwordController,
-                                  hintText: 'Password',
-                                  obscureText: true,
-                                ),
-                                const SizedBox(height: 30),
-                                MyTextFeild(
-                                  controller: confimPasswordController,
-                                  hintText: 'Confirm Password',
-                                  obscureText: true,
-                                ),
-                                const SizedBox(height: 40),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(right: 9, left: 9),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      const Text(
-                                        'Register',
+                               Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 5),
+                                    child: Container(
+                                      height: 60,
+                                      child: TextFormField(
+                                        controller: emailController,
+                                        obscureText: false,
                                         style: TextStyle(
                                           color:
                                               Color.fromRGBO(127, 110, 157, 1),
-                                          fontSize: 27,
-                                          fontWeight: FontWeight.w700,
+                                        ),
+                                        decoration: InputDecoration(
+                                          fillColor:
+                                              Color.fromARGB(0, 245, 245, 245),
+                                          filled: true,
+                                          labelText: 'Email',
+                                          labelStyle: GoogleFonts.poppins(
+                                            color: Color.fromRGBO(
+                                                127, 110, 157, 1),
+                                          ),
+                                          hintText: 'Enter an email address',
+                                          hintStyle: GoogleFonts.poppins(),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                            borderSide: BorderSide(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0)),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                            borderSide: BorderSide(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0)),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                            borderSide: BorderSide(
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0)),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 30),
+                                Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(),
+                                    child: Container(
+                                      height: 60,
+                                      child: TextFormField(
+                                        controller: passwordController,
+                                        obscureText: _obscureText,
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                127, 110, 157, 1)),
+                                        decoration: InputDecoration(
+                                          labelText: 'Password',
+                                          labelStyle: GoogleFonts.poppins(
+                                              color: Color.fromRGBO(
+                                                  127, 110, 157, 1)),
+                                          hintText: 'Enter a password',
+                                          hintStyle: GoogleFonts.poppins(),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                          ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              _obscureText
+                                                  ? Icons.visibility_off
+                                                  : Icons.visibility,
+                                              color: Color.fromRGBO(
+                                                  127, 110, 157, 1),
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                _obscureText = !_obscureText;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 30),
+                                Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(),
+                                    child: Container(
+                                      height: 60,
+                                      child: TextFormField(
+                                        controller:confimPasswordController,
+                                        obscureText: _obscureText,
+                                        style: TextStyle(
+                                            color: Color.fromRGBO(
+                                                127, 110, 157, 1)),
+                                        decoration: InputDecoration(
+                                          labelText: 'Password',
+                                          labelStyle: GoogleFonts.poppins(
+                                              color: Color.fromRGBO(
+                                                  127, 110, 157, 1)),
+                                          hintText: 'Enter a password',
+                                          hintStyle: GoogleFonts.poppins(),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(11),
+                                          ),
+                                          suffixIcon: IconButton(
+                                            icon: Icon(
+                                              _obscureText
+                                                  ? Icons.visibility_off
+                                                  : Icons.visibility,
+                                              color: Color.fromRGBO(
+                                                  127, 110, 157, 1),
+                                            ),
+                                            onPressed: () {
+                                              setState(() {
+                                                _obscureText = !_obscureText;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height:30),
+                                Padding(
+                                  padding: const EdgeInsets.all(0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        'Register',
+                                        style: GoogleFonts.poppins(
+                                          color: Color.fromRGBO(127, 110, 157, 1),
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
                                       CircleAvatar(
-                                        radius: 30,
+                                        radius: 22,
                                         backgroundColor: const Color.fromRGBO(
                                             160, 147, 183, 1),
                                         child: IconButton(
@@ -142,27 +257,29 @@ class _RegiterState extends State<RegisterPage> {
                                     ],
                                   ),
                                 ),
-                                const SizedBox(height: 40),
+                                const SizedBox(height: 30),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Text(
+                                    Text(
                                       'Already have an account?',
                                       style: TextStyle(
-                                        fontSize: 14,
-                                        color: Color.fromRGBO(160, 147, 183, 1),
-                                        fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      color: Color.fromRGBO(160, 147, 183, 1),
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: GoogleFonts.poppins().fontFamily,
                                       ),
                                     ),
-                                    const SizedBox(width: 4),
+                                    const SizedBox(width: 5),
                                     GestureDetector(
                                       onTap: widget.onTap,
-                                      child: const Text(
+                                      child: Text(
                                         'Login',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Color.fromRGBO(77, 77, 77, 1),
+                                           color: Color(0xFF8F86FA),
                                           fontWeight: FontWeight.bold,
+                                          fontFamily: GoogleFonts.poppins().fontFamily,
                                         ),
                                       ),
                                     ),

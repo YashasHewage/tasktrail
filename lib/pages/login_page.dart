@@ -225,34 +225,37 @@ class _LoginpageState extends State<Loginpage> {
                                 //   ),
                                 // ),
 
-                                TextButton(
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 40, right: 40),
+                                  child: TextButton(
                                   onPressed: login,
                                   style: TextButton.styleFrom(
                                     padding: EdgeInsets.zero,
                                   ),
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        'Sign In',
-                                        style: GoogleFonts.poppins(
-                                          color:
-                                              Color.fromRGBO(127, 110, 157, 1),
-                                          fontSize: 28,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                                    Text(
+                                      'Sign In',
+                                      style: GoogleFonts.poppins(
+                                      color:
+                                        Color.fromRGBO(127, 110, 157, 1),
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w500,
                                       ),
-                                      CircleAvatar(
-                                        radius: 28,
-                                        backgroundColor:
-                                            Color.fromRGBO(160, 147, 183, 1),
-                                        child: Icon(
-                                          Icons.arrow_forward,
-                                          color: Colors.white,
-                                        ),
+                                    ),
+                                    CircleAvatar(
+                                      radius: 23,
+                                      backgroundColor:
+                                        Color.fromRGBO(160, 147, 183, 1),
+                                      child: Icon(
+                                      Icons.arrow_forward,
+                                      color: Colors.white,
                                       ),
+                                    ),
                                     ],
+                                  ),
                                   ),
                                 ),
                                 const SizedBox(height: 40),
