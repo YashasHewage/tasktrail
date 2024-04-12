@@ -57,7 +57,6 @@ class _AddJobState extends State<AddJob> {
       category!,
       contactController.text,
       authService.getEmail(),
-      
     );
 
     // clear fields
@@ -182,16 +181,27 @@ class _AddJobState extends State<AddJob> {
               ),
               const SizedBox(height: 70),
               ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blue),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  overlayColor: MaterialStateProperty.all<Color>(Colors.green),
+                  shadowColor: MaterialStateProperty.all<Color>(Colors.red),
+                  elevation: MaterialStateProperty.all<double>(5),
+                  padding: MaterialStateProperty.all<EdgeInsets>(
+                      const EdgeInsets.all(15)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                  ),
+                ),
+                onPressed: addJob,
                 child: Text('Submit',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.tertiary,
                     )),
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                    Theme.of(context).colorScheme.primaryContainer,
-                  ),
-                ),
-                onPressed: addJob,
               ),
             ],
           ),

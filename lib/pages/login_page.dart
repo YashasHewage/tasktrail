@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tasktrail/components/my_button.dart';
 import 'package:tasktrail/components/my_textfeild.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
-import 'package:tasktrail/services/firrestore.dart';
 
 class Loginpage extends StatefulWidget {
   final void Function()? onTap;
