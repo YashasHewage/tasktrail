@@ -169,8 +169,24 @@ class _AddJobState extends State<AddJob> {
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.tertiary,
                 ),
-                items: <String>['Category 1', 'Category 2', 'Category 3']
-                    .map<DropdownMenuItem<String>>((String value) {
+                items: <String>[
+                  'Engineering',
+                  'Education',
+                  'IT',
+                  'Constructions',
+                  'Healthcare',
+                  'Science',
+                  'Transportation',
+                  'Finance',
+                  'Entertainment',
+                  'Sports',
+                  'Gardening',
+                  'Photography',
+                  'Volunteer',
+                  'Therapy',
+                  'Household Chores',
+                  'Beauty & Skincare',
+                ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),

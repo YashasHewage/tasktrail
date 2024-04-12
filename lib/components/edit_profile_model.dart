@@ -1,5 +1,9 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:tasktrail/pages/home_page.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
+import 'package:tasktrail/services/firrestore.dart';
 
 class EditProfile extends StatefulWidget {
   final bool isDarkMode;
@@ -15,13 +19,29 @@ class _EditProfileState extends State<EditProfile> {
   String selectedAvatar =
       'assets/images/avatar1.png'; // Default selected avatar
 
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
   final AuthService authService = AuthService();
+  final FirestoreService firestoreService = FirestoreService();
 
+  @override
   void initState() {
     super.initState();
-    _emailController.text = authService.getEmail(); // Set default email value
+    _loadUserData();
+  }
+
+  void _loadUserData() async {
+    final email = authService.getEmail();
+    final userDoc = await firestoreService.getUserByEmail(email);
+    final userData = userDoc.data();
+
+    if (userData != null) {
+      _usernameController.text =
+          (userData as Map<String, dynamic>)['username'] ?? '';
+      selectedAvatar =
+          'assets/images/avatar${(userData as Map<Int, dynamic>)['imageId']}.png';
+    }
   }
 
   void _showAvatarEditor() {
@@ -88,20 +108,21 @@ class _EditProfileState extends State<EditProfile> {
               radius: 70,
               backgroundImage: AssetImage(selectedAvatar),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ElevatedButton(
               onPressed: _showAvatarEditor,
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(15),
                 backgroundColor: Color.fromRGBO(64, 106, 255, 1),
               ),
-              child: Text(
+              child: const Text(
                 'Edit Avatar',
                 style: TextStyle(color: Colors.white),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             TextField(
+              controller: _usernameController,
               decoration: InputDecoration(
                 labelText: 'Username',
                 labelStyle:
@@ -124,12 +145,25 @@ class _EditProfileState extends State<EditProfile> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  final username = _usernameController.text;
+                  final imageNumber = int.parse(
+                      selectedAvatar.split('avatar')[1].split('.png')[0]);
+                  firestoreService.updateUserData(
+                      authService.getEmail(), username, imageNumber);
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomePage(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(15),
                   backgroundColor: Color.fromRGBO(64, 106, 255, 1),
                 ),
-                child: Text(
+                child: const Text(
                   'Save',
                   style: TextStyle(color: Colors.white),
                 ),
