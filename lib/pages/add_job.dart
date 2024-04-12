@@ -74,10 +74,14 @@ class _AddJobState extends State<AddJob> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.tertiary,
       appBar: AppBar(
-        title: const Text("Add New Job"),
+        title: const Text(
+          "Add New Task",
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+        ),
+        centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20, right: 20, top: 25),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 28),
         child: Form(
           child: ListView(
             children: <Widget>[
@@ -165,8 +169,24 @@ class _AddJobState extends State<AddJob> {
                   filled: true,
                   fillColor: Theme.of(context).colorScheme.tertiary,
                 ),
-                items: <String>['Category 1', 'Category 2', 'Category 3']
-                    .map<DropdownMenuItem<String>>((String value) {
+                items: <String>[
+                  'Engineering',
+                  'Education',
+                  'IT',
+                  'Constructions',
+                  'Healthcare',
+                  'Science',
+                  'Transportation',
+                  'Finance',
+                  'Entertainment',
+                  'Sports',
+                  'Gardening',
+                  'Photography',
+                  'Volunteer',
+                  'Therapy',
+                  'Household Chores',
+                  'Beauty & Skincare',
+                ].map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(value),
@@ -179,7 +199,7 @@ class _AddJobState extends State<AddJob> {
                   });
                 },
               ),
-              const SizedBox(height: 70),
+              const SizedBox(height: 50),
               ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor:
@@ -200,7 +220,7 @@ class _AddJobState extends State<AddJob> {
                 onPressed: addJob,
                 child: Text('Submit',
                     style: TextStyle(
-                      color: Theme.of(context).colorScheme.tertiary,
+                      color: Colors.white,
                     )),
               ),
             ],

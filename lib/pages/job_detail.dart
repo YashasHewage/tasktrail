@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:tasktrail/pages/view_requests.dart';
 import 'package:tasktrail/services/auth/auth_service.dart';
 import 'package:tasktrail/services/firrestore.dart';
 
@@ -17,6 +19,14 @@ class _TaskViewState extends State<TaskView> {
   final FirestoreService firestoreService = FirestoreService();
   final AuthService authService = AuthService();
 
+  Future<int>? approvedCountFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    approvedCountFuture = firestoreService.getApprovedEnrolledCount(widget.id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(
@@ -24,8 +34,7 @@ class _TaskViewState extends State<TaskView> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
-            color: const Color.fromARGB(
-                255, 255, 255, 255), // replace with your desired color
+            color: const Color.fromARGB(255, 255, 255, 255),
             child: const Center(child: CircularProgressIndicator()),
           );
         }
@@ -58,10 +67,12 @@ class _TaskViewState extends State<TaskView> {
                 color: Theme.of(context).colorScheme.tertiary,
                 child: SingleChildScrollView(
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.only(
+                        left: 16.0, right: 16.0, bottom: 100),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(height: 10),
                         Text(
                           jobData['title'],
                           style: GoogleFonts.poppins(
@@ -69,11 +80,23 @@ class _TaskViewState extends State<TaskView> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        Container(
+                          margin: const EdgeInsets.only(top: 8),
+                          child: Text(
+                            DateFormat('yyyy-MM-dd        kk:mm')
+                                .format(jobData['createdAt'].toDate()),
+                            style: GoogleFonts.poppins(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              color: const Color.fromARGB(255, 163, 163, 163),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 30),
                         Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                              color: Color.fromARGB(255, 163, 163, 163),
+                              color: const Color.fromARGB(255, 163, 163, 163),
                               width: 1,
                             ),
                             color: Colors.white,
@@ -153,7 +176,7 @@ class _TaskViewState extends State<TaskView> {
                                         Container(
                                           margin: const EdgeInsets.only(top: 6),
                                           child: Text(
-                                            'Position',
+                                            'Payment',
                                             style: GoogleFonts.poppins(
                                               color: const Color(0xFF777B8A),
                                               fontSize: 13,
@@ -196,23 +219,37 @@ class _TaskViewState extends State<TaskView> {
                                         Container(
                                           margin: const EdgeInsets.only(top: 6),
                                           child: Text(
-                                            'Position',
+                                            'Vacancies',
                                             style: GoogleFonts.poppins(
                                               color: const Color(0xFF777B8A),
                                               fontSize: 13,
                                             ),
                                           ),
                                         ),
-                                        Container(
-                                          margin: const EdgeInsets.only(top: 6),
-                                          child: Text(
-                                            jobData['slots'].toString(),
-                                            style: GoogleFonts.poppins(
-                                              color: const Color(0xFF121212),
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
+                                        FutureBuilder<int>(
+                                          future: firestoreService
+                                              .getApprovedEnrolledCount(
+                                                  widget.id),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.connectionState ==
+                                                ConnectionState.waiting) {
+                                              return const CircularProgressIndicator();
+                                            }
+                                            if (snapshot.hasError) {
+                                              return const Text(
+                                                  'Error fetching approved users count');
+                                            }
+                                            final count = snapshot.data;
+                                            final remainingSlots =
+                                                jobData['slots'] - count;
+                                            return Text(
+                                              '$remainingSlots',
+                                              style: const TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ],
                                     ),
@@ -223,15 +260,27 @@ class _TaskViewState extends State<TaskView> {
                           ),
                         ),
                         Container(
+                            // margin: const EdgeInsets.only(top: 10),
+                            // child: Text(
+                            //   'Date & Time',
+                            //   style: GoogleFonts.poppins(
+                            //       fontSize: 20,
+                            //       fontWeight: FontWeight.w600,
+                            //       color: Color.fromRGBO(108, 105, 189, 1)),
+                            // ),
+                            ),
+                        Container(
                           margin: const EdgeInsets.only(top: 30),
                           child: Text(
-                            'Requirements',
+                            'Description',
                             style: GoogleFonts.poppins(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                                color: Color.fromRGBO(108, 105, 189, 1)),
                           ),
                         ),
                         Container(
-                          margin: const EdgeInsets.only(top: 10),
+                          margin: const EdgeInsets.only(top: 8),
                           child: Text(
                             jobData['description'],
                             style: GoogleFonts.poppins(
@@ -248,130 +297,146 @@ class _TaskViewState extends State<TaskView> {
             },
           ),
           floatingActionButton: Container(
-            margin: const EdgeInsets.only(bottom: 150),
+            margin: const EdgeInsets.only(bottom: 20),
             width: 320,
             child: FloatingActionButton(
               onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Container(
-                      height: MediaQuery.of(context).size.height * 0.32,
-                      child: SingleChildScrollView(
-                        child: Container(
-                          margin: const EdgeInsets.only(
-                              top: 30, left: 20, right: 20),
-                          child: Column(
-                            children: <Widget>[
-                              Row(
-                                children: [
-                                  Text(
-                                    'About the Advertiser',
-                                    style: GoogleFonts.poppins(
-                                      color: const Color(0xFF928FFF),
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                if (authService.getEmail() == jobData['ownerEmail']) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ViewReq(
+                              id: widget.id,
+                            )),
+                  );
+                } else {
+                  firestoreService.enrollUser(
+                      widget.id, authService.getEmail());
+
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Container(
+                        height: MediaQuery.of(context).size.height * 0.32,
+                        child: Card(
+                          child: SingleChildScrollView(
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                  top: 30, left: 20, right: 20),
+                              child: Column(
+                                children: <Widget>[
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'About the Advertiser',
+                                        style: GoogleFonts.poppins(
+                                          color: const Color(0xFF928FFF),
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 20),
+                                  FutureBuilder<DocumentSnapshot>(
+                                    future: firestoreService
+                                        .getUserByEmail(jobData['ownerEmail']),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return const CircularProgressIndicator();
+                                      }
+                                      if (snapshot.hasError) {
+                                        return const Text(
+                                            'Error fetching user details');
+                                      }
+                                      final userData = snapshot.data!.data()
+                                          as Map<String, dynamic>;
+                                      return Row(
+                                        children: <Widget>[
+                                          CircleAvatar(
+                                            radius: 35,
+                                            backgroundImage: AssetImage(
+                                                'assets/images/avatar${userData['imageId']}.png'),
+                                          ),
+                                          const SizedBox(width: 15),
+                                          Expanded(
+                                            child: Column(
+                                              children: <Widget>[
+                                                Row(
+                                                  children: <Widget>[
+                                                    Expanded(
+                                                      child: Text(
+                                                        userData['username'],
+                                                        overflow: TextOverflow
+                                                            .visible,
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          color: const Color
+                                                              .fromARGB(
+                                                              255, 27, 27, 27),
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                const SizedBox(height: 2),
+                                                Row(
+                                                  children: <Widget>[
+                                                    Expanded(
+                                                      child: Text(
+                                                        jobData['ownerEmail'],
+                                                        overflow: TextOverflow
+                                                            .visible,
+                                                        style:
+                                                            GoogleFonts.poppins(
+                                                          color: const Color
+                                                              .fromARGB(255,
+                                                              150, 150, 150),
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.w400,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(width: 10),
+                                          const CircleAvatar(
+                                            radius: 22,
+                                            backgroundColor: Color(0xFF928FFF),
+                                            child: Icon(Icons.phone, size: 22),
+                                          ),
+                                          const SizedBox(width: 10),
+                                          const CircleAvatar(
+                                            radius: 22,
+                                            backgroundColor: Color(0xFF928FFF),
+                                            child: Icon(Icons.mail, size: 22),
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 20),
-                              FutureBuilder<DocumentSnapshot>(
-                                future: firestoreService
-                                    .getUserByEmail(jobData['ownerEmail']),
-                                builder: (context, snapshot) {
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return const CircularProgressIndicator();
-                                  }
-                                  if (snapshot.hasError) {
-                                    return const Text(
-                                        'Error fetching user details');
-                                  }
-                                  final userData = snapshot.data!.data()
-                                      as Map<String, dynamic>;
-                                  return Row(
-                                    children: <Widget>[
-                                      CircleAvatar(
-                                        radius: 35,
-                                        backgroundImage: AssetImage(
-                                            'assets/images/avatar${userData['imageId']}.png'),
-                                      ),
-                                      const SizedBox(width: 15),
-                                      Expanded(
-                                        child: Column(
-                                          children: <Widget>[
-                                            Row(
-                                              children: <Widget>[
-                                                Expanded(
-                                                  child: Text(
-                                                    userData['username'],
-                                                    overflow:
-                                                        TextOverflow.visible,
-                                                    style: GoogleFonts.poppins(
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255, 27, 27, 27),
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 2),
-                                            Row(
-                                              children: <Widget>[
-                                                Expanded(
-                                                  child: Text(
-                                                    jobData['ownerEmail'],
-                                                    overflow:
-                                                        TextOverflow.visible,
-                                                    style: GoogleFonts.poppins(
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              150,
-                                                              150,
-                                                              150),
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w400,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      const CircleAvatar(
-                                        radius: 22,
-                                        backgroundColor: Color(0xFF928FFF),
-                                        child: Icon(Icons.phone, size: 22),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      const CircleAvatar(
-                                        radius: 22,
-                                        backgroundColor: Color(0xFF928FFF),
-                                        child: Icon(Icons.mail, size: 22),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    );
-                  },
-                );
+                      );
+                    },
+                  );
+                }
               },
               child: Text(
-                'Enroll Now',
+                jobData['ownerEmail'] == authService.getEmail()
+                    ? 'View Requests'
+                    : 'Enroll Now',
                 style: GoogleFonts.poppins(
                   color: Colors.white,
                   fontSize: 16,

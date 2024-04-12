@@ -5,71 +5,85 @@ class CategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      appBar: AppBar(
+        title: const Text(
+          "Categories",
+          style: TextStyle(fontWeight: FontWeight.w500),
+        ),
+        centerTitle: true,
+      ),
       body: Container(
-        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
+        // margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.only(right: 20.0, left: 20.0),
           child: Scrollbar(
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  const SizedBox(height: 10),
-                  Container(
-                    margin: const EdgeInsets.only(left: 1, bottom: 10),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Categories',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
+                  // Align(
+                  //   alignment: Alignment.topLeft,
+                  //   child: IconButton(
+                  //     icon: const Icon(Icons.arrow_back),
+                  //     onPressed: () {
+                  //       Navigator.of(context).pop();
+                  //     },
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 10),
+                  // const SizedBox(height: 10),
+                  // Container(
+                  //   margin: const EdgeInsets.only(left: 1, bottom: 10),
+                  //   child: const Row(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: [
+                  //       Text(
+                  //         'Categories',
+                  //         style: TextStyle(
+                  //           fontSize: 24,
+                  //           fontWeight: FontWeight.bold,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
+                  // const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: Column(
                           children: [
-                            _buildCategoryButton('Engineering', context,
-                                addIcon: true, icon: Icons.lightbulb_outline),
-                            const SizedBox(height: 10),
                             _buildCategoryButton(
-                                'Information Technology', context,
+                              'Engineering',
+                              context,
+                              addIcon: true,
+                              icon: Icons.lightbulb_outline_rounded,
+                            ),
+                            const SizedBox(height: 10),
+                            _buildCategoryButton('IT', context,
                                 addIcon: true, icon: Icons.laptop),
                             const SizedBox(height: 10),
                             _buildCategoryButton('Healthcare', context,
-                                addIcon: true, icon: Icons.add),
+                                addIcon: true, icon: Icons.health_and_safety),
                             const SizedBox(height: 10),
-                            _buildCategoryButton(
-                                'Science and Technology', context,
+                            _buildCategoryButton('Science', context,
                                 addIcon: true, icon: Icons.science),
                             const SizedBox(height: 10),
-                            _buildCategoryButton('Engineering', context,
-                                addIcon: true, icon: Icons.lightbulb_outline),
+                            _buildCategoryButton('Entertainment', context,
+                                addIcon: true, icon: Icons.music_video),
                             const SizedBox(height: 10),
-                            _buildCategoryButton(
-                                'Information Technology', context,
-                                addIcon: true, icon: Icons.laptop),
+                            _buildCategoryButton('Gardening ', context,
+                                addIcon: true, icon: Icons.eco),
                             const SizedBox(height: 10),
-                            _buildCategoryButton('Healthcare', context,
-                                addIcon: true, icon: Icons.add),
+                            _buildCategoryButton('Volunteer ', context,
+                                addIcon: true, icon: Icons.handshake),
+                            const SizedBox(height: 10),
+                            _buildCategoryButton('Household Chores ', context,
+                                addIcon: true, icon: Icons.home_work_rounded),
+                            const SizedBox(height: 10),
+                            _buildCategoryButton('Beauty & Skincare ', context,
+                                addIcon: true, icon: Icons.face),
                           ],
                         ),
                       ),
@@ -89,19 +103,26 @@ class CategoriesPage extends StatelessWidget {
                             _buildCategoryButton('Finance', context,
                                 addIcon: true, icon: Icons.attach_money),
                             const SizedBox(height: 10),
-                            _buildCategoryButton('Education', context,
-                                addIcon: true, icon: Icons.school),
+                            _buildCategoryButton('Sports', context,
+                                addIcon: true, icon: Icons.sports_cricket),
                             const SizedBox(height: 10),
-                            _buildCategoryButton('Construction', context,
-                                addIcon: true, icon: Icons.construction),
+                            _buildCategoryButton('Photography', context,
+                                addIcon: true, icon: Icons.camera_alt),
                             const SizedBox(height: 10),
-                            _buildCategoryButton('Transportation', context,
-                                addIcon: true, icon: Icons.local_shipping),
+                            _buildCategoryButton('Therapy', context,
+                                addIcon: true, icon: Icons.self_improvement),
+                            const SizedBox(height: 10),
+                            _buildCategoryButton('Parenting', context,
+                                addIcon: true, icon: Icons.family_restroom),
+                            const SizedBox(height: 10),
+                            _buildCategoryButton('Events & Activities', context,
+                                addIcon: true, icon: Icons.event),
                           ],
                         ),
                       ),
                     ],
                   ),
+                  const SizedBox(height: 50),
                 ],
               ),
             ),
@@ -133,11 +154,12 @@ class CategoriesPage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.black,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
-            if (addIcon && icon != null) Icon(icon, color: Colors.blue),
+            if (addIcon && icon != null)
+              Icon(icon, color: const Color.fromRGBO(146, 143, 243, 1)),
           ],
         ),
       ),

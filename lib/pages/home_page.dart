@@ -44,8 +44,8 @@ class _HomePageState extends State<HomePage>
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Image.asset(
-                  'assets/images/landingpage.png',
-                  height: 220,
+                  'assets/images/landingpage2.png',
+                  height: 260,
                 ),
               ],
             ),
